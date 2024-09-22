@@ -26,7 +26,9 @@ dependencies {
     implementation(libs.guava)
 
     implementation(libs.selenium)
-    testImplementation(libs.restassured)
+    implementation(libs.restassured)
+
+
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
