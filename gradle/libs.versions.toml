@@ -7,6 +7,7 @@ guava = "33.2.1-jre"
 testng = "7.10.2"
 selenium = "4.25.0"
 restassured = "5.5.0"
+jacksondatabind = "2.17.2"
 
 [libraries]
 commons-math3 = { module = "org.apache.commons:commons-math3", version.ref = "commons-math3" }
@@ -14,3 +15,4 @@ guava = { module = "com.google.guava:guava", version.ref = "guava" }
 testng = { module = "org.testng:testng", version.ref = "testng" }
 selenium = { module = "org.seleniumhq.selenium:selenium-java", version.ref = "selenium" }
 restassured = { module = "io.rest-assured:rest-assured", version.ref = "restassured" }
+jacksondatabind = {module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jacksondatabind" }

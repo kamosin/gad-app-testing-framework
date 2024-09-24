@@ -49,3 +49,28 @@
 **Decision**: Decided
 
 **Creator**: Kamil O
+
+## Attaching to project external dependencies to serialize and deserialize JAVA objects to JSON format - Jackson Databind
+
+**ID**: 003
+
+**Status**: Decided
+
+**Date**: 2024/09/24
+
+**Context**:  In the process of building and testing a web application, it became necessary to convert Java objects to JSON format and vice versa for API requests and responses. We needed a robust and flexible library to handle serialization and deserialization
+
+**Proposed solution**: Adopt the Jackson Databind library for object-to-JSON mapping and JSON-to-object deserialization
+
+**Pros**:
+- Ease of use: Simple API (ObjectMapper) to convert between Java objects and JSON.
+- Performance: Efficient processing of JSON data at scale.
+- Wide adoption: Well-maintained and widely used in the Java ecosystem.
+
+**Cons**
+- Learning curve: Some additional complexity when dealing with more advanced configurations, such as custom serializers/deserializers.
+- Module dependency: Requires adding extra modules (e.g., jackson-datatype-jsr310) to handle certain types, like Java 8 date/time.
+
+**Decision**: Decided
+
+**Creator**: Kamil O

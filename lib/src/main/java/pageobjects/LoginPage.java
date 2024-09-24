@@ -42,6 +42,10 @@ public class LoginPage {
         loginButton.click();
     }
 
+    public void login(String email, String password){
+        enterAllLoginData(email, password);
+        clickLoginButton();
+    }
 
 
 }

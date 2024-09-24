@@ -1,4 +1,5 @@
-import io.restassured.RestAssured;
+import API.OtherApis;
+import API.testutils.TestUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -9,8 +10,10 @@ import pageobjects.*;
 public class BaseTest {
 
     WebDriver driver;
-    String appUrl = "http://localhost:3000";
-    String restoreDatabaseEndpoint = "/restoreDB";
+    NavigationBar navigationBar;
+    CommonComponent commonComponent;
+    OtherApis otherApis;
+    String appUrl = TestUtils.getGlobalValue("baseUrl");
 
     @BeforeMethod
     public void launchApplication(){
@@ -21,19 +24,14 @@ public class BaseTest {
     }
 
     private void restoreDatabase() {
-        RestAssured
-                .given()
-                .baseUri(appUrl)
-                .when()
-                .get(restoreDatabaseEndpoint)
-                .then()
-                .statusCode(201)
-                .log()
-                .status();
+        otherApis = new OtherApis();
+        otherApis.restoreDb(appUrl);
     }
 
     private void initializeDriver() {
         driver = new ChromeDriver(new ChromeOptions());
+        commonComponent = new CommonComponent(driver);
+        navigationBar = new NavigationBar(driver);
         driver.manage().window().maximize();
     }
 

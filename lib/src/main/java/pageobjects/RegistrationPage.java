@@ -10,10 +10,12 @@ public class RegistrationPage {
 
     WebDriver driver;
     CommonComponent commonComponent;
+    NavigationBar navigationBar;
 
     public RegistrationPage(WebDriver driver) {
         this.driver = driver;
         this.commonComponent = new CommonComponent(driver);
+        this.navigationBar = new NavigationBar(driver);
         PageFactory.initElements(driver, this);
     }
 
@@ -33,8 +35,6 @@ public class RegistrationPage {
     WebElement imageSelector;
     @FindBy(id="registerButton")
     WebElement registerButton;
-    @FindBy(id="alertPopup")
-    WebElement alertPopup;
 
     @FindBy(id="octavalidate_firstname")
     WebElement firstNameValidation;
@@ -66,8 +66,6 @@ public class RegistrationPage {
     public boolean isPasswordValidationTextVisible(String text){
         return passwordValidation.isDisplayed() && passwordValidation.getText().equals(text);
     }
-
-
 
     public void enterFirstName(String firstName){
         firstNameInput.sendKeys(firstName);
@@ -109,12 +107,14 @@ public class RegistrationPage {
         registerButton.click();
     }
 
-    public String getPopupText(){
-        commonComponent.waitForElementToAppear(alertPopup);
-        if(alertPopup.isDisplayed()){
-            return alertPopup.getText();
-        }
-        else return "Not displayed";
+    public String registerWithAllFields(String firstName, String lastName, String email, String date,
+                                         String password, String imageName) {
+        navigationBar = new NavigationBar(driver);
+        RegistrationPage registrationPage = navigationBar.clickRegisterButton();
+        registrationPage.enterAllData(firstName, lastName, email, date,
+                password, imageName);
+        registrationPage.clickRegisterButton();
+        return commonComponent.getPopupText();
     }
 
 }
