@@ -20,4 +20,9 @@ public class LandingPage {
     public void goToLandingPage(String url){
         driver.get(url);
     }
+
+    public ArticlesPage clickStartButton(){
+        startButton.click();
+        return new ArticlesPage(driver);
+    }
 }

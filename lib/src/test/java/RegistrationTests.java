@@ -4,46 +4,34 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageobjects.LoginPage;
 import pageobjects.MyAccountPage;
-import pageobjects.NavigationBar;
 import pageobjects.RegistrationPage;
 
 public class RegistrationTests extends BaseTest {
 
-    String firstName = "John";
-    String lastName = "Smith";
-    String email = "john.smith@mail.com";
-    String date = "1960-12-12";
-    String password = "pass";
-    String imageName = "0797eae7-5f95-4985-8ac8-10c58e17c769.jpg";
-    String userCreatedExpectedText = "User created";
-    String emailNotUniqueExpectedText = "User not created! Email not unique";
-    String requiredFieldMessage  = "This field is required";
+    private static final String firstName = "John";
+    private static final String lastName = "Smith";
+    private static final String email = "john.smith@mail.com";
+    private static final String date = "1960-12-12";
+    private static final String password = "pass";
+    private static final String imageName = "0797eae7-5f95-4985-8ac8-10c58e17c769.jpg";
+    private static final String userCreatedExpectedText = "User created";
+    private static final String emailNotUniqueExpectedText = "User not created! Email not unique";
+    private static final String requiredFieldMessage  = "This field is required";
 
-    String wrongFirstName = "John1";
-    String wrongLastName = "Smith2";
-    String wrongEmail = "john.smith@mail";
-    String wrongDate = "12-12-1969";
+    private static final String wrongFirstName = "John1";
+    private static final String wrongLastName = "Smith2";
+    private static final String wrongEmail = "john.smith@mail";
+    private static final String wrongDate = "12-12-1969";
 
-    String wrongFirstNameLastNameMessage = "Please enter only Letters!";
-    String wrongEmailMessage = "Please provide a valid email address";
-    String wrongDateMessage = "Date must be in format YYYY-MM-DD";
-
-
-    NavigationBar navigationBar;
-
-    private String registerWithAllFields(String firstName, String lastName, String email, String date,
-                                         String password, String imageName) {
-        navigationBar = new NavigationBar(driver);
-        RegistrationPage registrationPage = navigationBar.clickRegisterButton();
-        registrationPage.enterAllData(firstName, lastName, email, date,
-                password, imageName);
-        registrationPage.clickRegisterButton();
-        return registrationPage.getPopupText();
-    }
+    private static final String wrongFirstNameLastNameMessage = "Please enter only Letters!";
+    private static final String wrongEmailMessage = "Please provide a valid email address";
+    private static final String wrongDateMessage = "Date must be in format YYYY-MM-DD";
+    RegistrationPage registrationPage;
 
     @Test
     public void RegistrationAndLoggingTest() {
-        String registrationInfo = registerWithAllFields(firstName, lastName, email, date,
+        registrationPage = new RegistrationPage(driver);
+        String registrationInfo = registrationPage.registerWithAllFields(firstName, lastName, email, date,
                 password, imageName);
         Assert.assertEquals(registrationInfo, userCreatedExpectedText);
 
@@ -57,19 +45,19 @@ public class RegistrationTests extends BaseTest {
 
     @Test
     public void RegistrationWithExistingUserEmail() {
-        String registrationInfo = registerWithAllFields(firstName, lastName, email, date,
+        registrationPage = new RegistrationPage(driver);
+        String registrationInfo = registrationPage.registerWithAllFields(firstName, lastName, email, date,
                 password, imageName);
         Assert.assertEquals(registrationInfo, userCreatedExpectedText);
 
-        registrationInfo = registerWithAllFields(firstName, lastName, email, date,
+        registrationInfo = registrationPage.registerWithAllFields(firstName, lastName, email, date,
                 password, imageName);
         Assert.assertEquals(registrationInfo, emailNotUniqueExpectedText);
     }
 
     @Test
     public void RegistrationWithOnlyEmail() {
-        navigationBar = new NavigationBar(driver);
-        RegistrationPage registrationPage = navigationBar.clickRegisterButton();
+        registrationPage = navigationBar.clickRegisterButton();
         registrationPage.enterEmail(email);
         registrationPage.clickRegisterButton();
         Assert.assertTrue(registrationPage.isPasswordValidationTextVisible(requiredFieldMessage) &&
@@ -81,8 +69,7 @@ public class RegistrationTests extends BaseTest {
     public void RegistrationWithWrongFormatData(){
         UsersAPI usersAPI = new UsersAPI();
         int numberOfUsersBeforeRegistration = usersAPI.getNumberOfUsers(appUrl);
-        navigationBar = new NavigationBar(driver);
-        RegistrationPage registrationPage = navigationBar.clickRegisterButton();
+        registrationPage = navigationBar.clickRegisterButton();
         registrationPage.enterAllData(wrongFirstName, wrongLastName, wrongEmail, wrongDate, password, imageName);
         registrationPage.clickRegisterButton();
         Assert.assertTrue(registrationPage.isFirstNameValidationTextVisible(wrongFirstNameLastNameMessage) &&
