@@ -282,12 +282,13 @@
 
 **Steps:**
 
-1. 1. Click "Let's start!" button in the center part of page.
+1. Click "Let's start!" button in the center part of page.
 2. Click Flashposts button
 3. Click "Create flashpost" button.
-4. Enter flashpost data. Choose blue background color (lower left corner).
-5. Click "Create" button.
-6. Click "Cancel" button
+4. Click "Create" button.
+5. Enter flashpost data. Choose blue background color (lower left corner).
+6. Click "Create" button.
+7. Click "Cancel" button
 
 **Entry data:**
 - flashpost: It is a trap!
@@ -297,9 +298,10 @@
 1. User automatically redirected on Articles page.
 2. Flashposts page is displayed. "Flashposts" button color changed to "grey".
 3. Modal with title "Create Flashpost" opened.
-4. Data properly entered and tile with color changed to black.
-5. "You can't create this flashpost." alert displayed on the upper right corner.
-6. Modal closed and list of flashposts still visible.
+4. "Flashpost can't be empty" alert message displayed in the background.
+5. Data properly entered and tile with color changed to blue.
+6. "You can't create this flashpost." alert displayed on the upper right corner.
+7. Modal closed and list of flashposts still visible.
 
 #### Test Case 4: Adding a public flashpost by logged in user and verification if it is visible for non-logged in users
 

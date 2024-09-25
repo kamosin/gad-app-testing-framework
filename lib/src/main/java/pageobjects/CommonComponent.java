@@ -13,6 +13,7 @@ public class CommonComponent {
     WebDriver driver;
 
     By alertPopup = By.id("alertPopup");
+    By simpleAlert = By.id("simple-alert");
 
     public CommonComponent(WebDriver driver) {
         this.driver = driver;
@@ -28,9 +29,23 @@ public class CommonComponent {
         wait.until(ExpectedConditions.visibilityOfElementLocated(element));
     }
 
+    public void waitForSimpleAlertToDisappear(){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(simpleAlert));
+    }
+
     public String getPopupText(){
         waitForElementToAppear(alertPopup);
         WebElement popup = driver.findElement(alertPopup);
+        if(popup.isDisplayed()){
+            return popup.getText();
+        }
+        else return "Popup not displayed";
+    }
+
+    public String getSimpleAlertText(){
+        waitForElementToAppear(simpleAlert);
+        WebElement popup = driver.findElement(simpleAlert);
         if(popup.isDisplayed()){
             return popup.getText();
         }

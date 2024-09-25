@@ -25,6 +25,8 @@ public class NavigationBar {
     WebElement articlesButton;
     @FindBy(id = "add-new")
     WebElement addNewArticleButton;
+    @FindBy(id="btnFlashposts")
+    WebElement flashPostsButton;
     By addArticleBtn = By.id("add-new");
 
     public RegistrationPage clickRegisterButton(){
@@ -43,6 +45,12 @@ public class NavigationBar {
         commonComponent.waitForElementToAppear(addNewArticleButton);
         addNewArticleButton.click();
         return new NewArticleModal(driver);
+    }
+
+    public FlashpostsPage clickFlashpostsPageButton(){
+        commonComponent.waitForElementToAppear(flashPostsButton);
+        flashPostsButton.click();
+        return new FlashpostsPage(driver);
     }
 
     public boolean isAddArticleButtonVisible(){
