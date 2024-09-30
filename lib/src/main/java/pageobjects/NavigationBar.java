@@ -21,10 +21,14 @@ public class NavigationBar {
     WebElement avatarIcon;
     @FindBy(id="registerBtn")
     WebElement registerButton;
+    @FindBy(id = "logoutBtn")
+    WebElement logoutButton;
     @FindBy(id="btnArticles")
     WebElement articlesButton;
     @FindBy(id = "add-new")
     WebElement addNewArticleButton;
+    @FindBy(id="btnFlashposts")
+    WebElement flashPostsButton;
     By addArticleBtn = By.id("add-new");
 
     public RegistrationPage clickRegisterButton(){
@@ -32,6 +36,13 @@ public class NavigationBar {
         hoverOverElement.moveToElement(avatarIcon).perform();
         registerButton.click();
         return new RegistrationPage(driver);
+    }
+
+    public LoginPage clickLogoutButton(){
+        Actions hoverOverElement = new Actions(driver);
+        hoverOverElement.moveToElement(avatarIcon).perform();
+        logoutButton.click();
+        return new LoginPage(driver);
     }
 
     public ArticlesPage clickArticlesPageButton(){
@@ -43,6 +54,12 @@ public class NavigationBar {
         commonComponent.waitForElementToAppear(addNewArticleButton);
         addNewArticleButton.click();
         return new NewArticleModal(driver);
+    }
+
+    public FlashpostsPage clickFlashpostsPageButton(){
+        commonComponent.waitForElementToAppear(flashPostsButton);
+        flashPostsButton.click();
+        return new FlashpostsPage(driver);
     }
 
     public boolean isAddArticleButtonVisible(){

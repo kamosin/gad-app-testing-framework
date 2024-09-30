@@ -1,82 +1,92 @@
-import API.UsersAPI;
+import api.RequestManager;
+import api.UserService;
 
+import api.models.UserRequest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageobjects.LoginPage;
 import pageobjects.MyAccountPage;
 import pageobjects.RegistrationPage;
+import testutlis.ReusableData;
+import testutlis.TestDataGenerator;
 
 public class RegistrationTests extends BaseTest {
 
-    private static final String firstName = "John";
-    private static final String lastName = "Smith";
-    private static final String email = "john.smith@mail.com";
-    private static final String date = "1960-12-12";
-    private static final String password = "pass";
-    private static final String imageName = "0797eae7-5f95-4985-8ac8-10c58e17c769.jpg";
-    private static final String userCreatedExpectedText = "User created";
-    private static final String emailNotUniqueExpectedText = "User not created! Email not unique";
-    private static final String requiredFieldMessage  = "This field is required";
-
-    private static final String wrongFirstName = "John1";
-    private static final String wrongLastName = "Smith2";
-    private static final String wrongEmail = "john.smith@mail";
-    private static final String wrongDate = "12-12-1969";
-
-    private static final String wrongFirstNameLastNameMessage = "Please enter only Letters!";
-    private static final String wrongEmailMessage = "Please provide a valid email address";
-    private static final String wrongDateMessage = "Date must be in format YYYY-MM-DD";
-    RegistrationPage registrationPage;
+    UserRequest user = TestDataGenerator.generateUser();
 
     @Test
     public void RegistrationAndLoggingTest() {
-        registrationPage = new RegistrationPage(driver);
-        String registrationInfo = registrationPage.registerWithAllFields(firstName, lastName, email, date,
-                password, imageName);
-        Assert.assertEquals(registrationInfo, userCreatedExpectedText);
+        //Given
+        var registrationPage = new RegistrationPage(driver);
+        //When
+        String registrationInfo = registrationPage.registerWithAllFields(user.firstname(), user.lastname(), user.email(), user.birthDate(),
+                user.password(), user.avatar());
+        //Then
+        Assert.assertEquals(registrationInfo, ReusableData.userCreatedExpectedMessage);
 
+        //When
         LoginPage loginPage = new LoginPage(driver);
-        loginPage.enterAllLoginData(email, password);
+        loginPage.enterAllLoginData(user.email(), user.password());
         loginPage.clickLoginButton();
-
         MyAccountPage myAccountPage = new MyAccountPage(driver);
-        Assert.assertEquals(myAccountPage.getWelcomeText(), "Hi " + email + "!");
+
+        //Then
+        Assert.assertEquals(myAccountPage.getWelcomeText(), "Hi " + user.email() + "!");
     }
 
     @Test
     public void RegistrationWithExistingUserEmail() {
-        registrationPage = new RegistrationPage(driver);
-        String registrationInfo = registrationPage.registerWithAllFields(firstName, lastName, email, date,
-                password, imageName);
-        Assert.assertEquals(registrationInfo, userCreatedExpectedText);
+        //Given
+        var registrationPage = new RegistrationPage(driver);
 
-        registrationInfo = registrationPage.registerWithAllFields(firstName, lastName, email, date,
-                password, imageName);
-        Assert.assertEquals(registrationInfo, emailNotUniqueExpectedText);
+        //When
+        String registrationInfo = registrationPage.registerWithAllFields(user.firstname(), user.lastname(), user.email(), user.birthDate(),
+                user.password(), user.avatar());
+        Assert.assertEquals(registrationInfo, ReusableData.userCreatedExpectedMessage);
+        registrationInfo = registrationPage.registerWithAllFields(user.firstname(), user.lastname(), user.email(), user.birthDate(),
+                user.password(), user.avatar());
+
+        //Then
+        Assert.assertEquals(registrationInfo, ReusableData.emailNotUniqueExpectedMessage);
     }
 
     @Test
     public void RegistrationWithOnlyEmail() {
-        registrationPage = navigationBar.clickRegisterButton();
-        registrationPage.enterEmail(email);
+        //Given
+        var registrationPage = navigationBar.clickRegisterButton();
+
+        //When
+        registrationPage.enterEmail(user.email());
         registrationPage.clickRegisterButton();
-        Assert.assertTrue(registrationPage.isPasswordValidationTextVisible(requiredFieldMessage) &&
-                registrationPage.isLastNameValidationTextVisible(requiredFieldMessage) &&
-                registrationPage.isFirstNameValidationTextVisible(requiredFieldMessage));
+
+        //Then
+        Assert.assertTrue(registrationPage.isPasswordValidationTextVisible(ReusableData.requiredFieldMessage) &&
+                registrationPage.isLastNameValidationTextVisible(ReusableData.requiredFieldMessage) &&
+                registrationPage.isFirstNameValidationTextVisible(ReusableData.requiredFieldMessage));
     }
 
     @Test
     public void RegistrationWithWrongFormatData(){
-        UsersAPI usersAPI = new UsersAPI();
-        int numberOfUsersBeforeRegistration = usersAPI.getNumberOfUsers(appUrl);
-        registrationPage = navigationBar.clickRegisterButton();
-        registrationPage.enterAllData(wrongFirstName, wrongLastName, wrongEmail, wrongDate, password, imageName);
+        //Given
+        var requestManager = new RequestManager();
+        var wrongFirstName = "John1";
+        var wrongLastName = "Smith2";
+        var wrongEmail = "john.smith@mail";
+        var wrongDate = "12-12-1969";
+        var userService = new UserService(requestManager);
+        var numberOfUsersBeforeRegistration = userService.getNumberOfUsers(appUrl);
+
+        //When
+        var registrationPage = navigationBar.clickRegisterButton();
+        registrationPage.enterAllData(wrongFirstName, wrongLastName, wrongEmail, wrongDate, user.password(), user.avatar());
         registrationPage.clickRegisterButton();
-        Assert.assertTrue(registrationPage.isFirstNameValidationTextVisible(wrongFirstNameLastNameMessage) &&
-                registrationPage.isLastNameValidationTextVisible(wrongFirstNameLastNameMessage) &&
-                registrationPage.isEmailValidationTextVisible(wrongEmailMessage) &&
-                registrationPage.isDateValidationTextVisible(wrongDateMessage));
-        Assert.assertEquals(usersAPI.getNumberOfUsers(appUrl), numberOfUsersBeforeRegistration);
+
+        //Then
+        Assert.assertTrue(registrationPage.isFirstNameValidationTextVisible(ReusableData.wrongFirstNameLastNameMessage) &&
+                registrationPage.isLastNameValidationTextVisible(ReusableData.wrongFirstNameLastNameMessage) &&
+                registrationPage.isEmailValidationTextVisible(ReusableData.wrongEmailMessage) &&
+                registrationPage.isDateValidationTextVisible(ReusableData.wrongDateMessage));
+        Assert.assertEquals(userService.getNumberOfUsers(appUrl), numberOfUsersBeforeRegistration);
     }
 
 }

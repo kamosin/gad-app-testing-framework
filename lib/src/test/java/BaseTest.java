@@ -1,19 +1,23 @@
-import API.OtherApis;
-import API.testutils.TestUtils;
+import api.OtherFeaturesService;
+import api.RequestManager;
+import api.models.UserRequest;
+import api.testutils.TestUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import pageobjects.*;
+import testutlis.TestDataGenerator;
 
 public class BaseTest {
 
     WebDriver driver;
     NavigationBar navigationBar;
     CommonComponent commonComponent;
-    OtherApis otherApis;
+    OtherFeaturesService otherFeaturesService;
     String appUrl = TestUtils.getGlobalValue("baseUrl");
+    RequestManager requestManager;
 
     @BeforeMethod
     public void launchApplication(){
@@ -21,11 +25,12 @@ public class BaseTest {
         var landingPage = new LandingPage(driver);
         landingPage.goToLandingPage(appUrl);
         restoreDatabase();
+        requestManager = new RequestManager();
     }
 
     private void restoreDatabase() {
-        otherApis = new OtherApis();
-        otherApis.restoreDb(appUrl);
+        otherFeaturesService = new OtherFeaturesService(requestManager);
+        otherFeaturesService.restoreDb(appUrl);
     }
 
     private void initializeDriver() {
@@ -38,5 +43,14 @@ public class BaseTest {
     @AfterMethod
     public void tearDown(){
         driver.close();
+    }
+
+    public UserRequest registerAndLogin(){
+        RegistrationPage registrationPage = new RegistrationPage(driver);
+        UserRequest user = TestDataGenerator.generateUser();
+        registrationPage.registerWithAllFields(user.firstname(), user.lastname(), user.email(), user.birthDate(), user.password(), user.avatar());
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.login(user.email(), user.password());
+        return user;
     }
 }

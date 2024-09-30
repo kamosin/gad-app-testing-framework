@@ -133,7 +133,7 @@
 1. Articles page is displayed. Add article button visible.
 2. "Add New Entry page" visible with forms to add new article.
 3. Data properly entered and new picture visible.
-4. "Article was created" message is displayed. User redirected to single article page view that was already created. Number of articles increased by 1.(Check using API or DB)
+4. "Article was created" message is displayed. User redirected to single article page view that was already created. Number of articles increased by 1.(Check using api or DB)
 
 #### Test Case 2: Adding an article with missing data
 
@@ -159,9 +159,9 @@
 1. Articles page is displayed. Add article button visible.
 2. "Add New Entry page" visible with forms to add new article.
 3. Data properly entered.
-4. "Article was not created" popup is displayed and user is not redirected to any other page. Number of written articles is not increased (check using API or in DB).
+4. "Article was not created" popup is displayed and user is not redirected to any other page. Number of written articles is not increased (check using api or in DB).
 5. Data properly entered.
-6. "Article was not created" popup is displayed and user is not redirected to any other page. Number of written articles is not increased (check using API or in DB).
+6. "Article was not created" popup is displayed and user is not redirected to any other page. Number of written articles is not increased (check using api or in DB).
 
 #### Test Case 3: Adding an article by not logged in user
 
@@ -199,7 +199,7 @@
 1. Articles page is displayed. Add article button visible.
 2. "Add New Entry page" visible with forms to add new article.
 3. Data properly entered.
-4. "Article was not created" popup is displayed and user is not redirected to any other page. Number of written articles is not increased (check using API or in DB). 422 error code expected and returned message should include text "Field validation: \"title\" longer than \"128\".
+4. "Article was not created" popup is displayed and user is not redirected to any other page. Number of written articles is not increased (check using api or in DB). 422 error code expected and returned message should include text "Field validation: \"title\" longer than \"128\".
 
 #### Test Case 5: Adding an article with Polish and special characters
 
@@ -223,7 +223,7 @@
 1. Articles page is displayed. Add article button visible.
 2. "Add New Entry page" visible with forms to add new article.
 3. Data properly entered.
-4. "Article was created" message is displayed. User redirected to single article page view that was already created. Number of articles increased by 1.(Check using API or DB)
+4. "Article was created" message is displayed. User redirected to single article page view that was already created. Number of articles increased by 1.(Check using api or DB)
 
 ## Scenario 3: Adding a flashposts
 - Description : Registered and logged in user might add flashposts at maximum 128 length
@@ -272,7 +272,7 @@
 
 1. Flashposts page is displayed. "Flashposts button color changed to "grey".
 2. Modal with title "Create Flashpost" opened.
-3. After reaching 128 characters GUI is not allowing to enter more data. "O characters left visible in lower right corner of text area". *sending API POST request should result in 422 error code with message: "One of field is invalid (empty, invalid or too long) or there are some additional fields: Field validation: \"body\" longer than \"128\""
+3. After reaching 128 characters GUI is not allowing to enter more data. "O characters left visible in lower right corner of text area". *sending api POST request should result in 422 error code with message: "One of field is invalid (empty, invalid or too long) or there are some additional fields: Field validation: \"body\" longer than \"128\""
 
 #### Test Case 3: Adding a flashpost by not logged in user
 
@@ -282,12 +282,13 @@
 
 **Steps:**
 
-1. 1. Click "Let's start!" button in the center part of page.
+1. Click "Let's start!" button in the center part of page.
 2. Click Flashposts button
 3. Click "Create flashpost" button.
-4. Enter flashpost data. Choose blue background color (lower left corner).
-5. Click "Create" button.
-6. Click "Cancel" button
+4. Click "Create" button.
+5. Enter flashpost data. Choose blue background color (lower left corner).
+6. Click "Create" button.
+7. Click "Cancel" button
 
 **Entry data:**
 - flashpost: It is a trap!
@@ -297,9 +298,10 @@
 1. User automatically redirected on Articles page.
 2. Flashposts page is displayed. "Flashposts" button color changed to "grey".
 3. Modal with title "Create Flashpost" opened.
-4. Data properly entered and tile with color changed to black.
-5. "You can't create this flashpost." alert displayed on the upper right corner.
-6. Modal closed and list of flashposts still visible.
+4. "Flashpost can't be empty" alert message displayed in the background.
+5. Data properly entered and tile with color changed to blue.
+6. "You can't create this flashpost." alert displayed on the upper right corner.
+7. Modal closed and list of flashposts still visible.
 
 #### Test Case 4: Adding a public flashpost by logged in user and verification if it is visible for non-logged in users
 

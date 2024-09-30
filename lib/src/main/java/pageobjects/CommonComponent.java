@@ -7,12 +7,16 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class CommonComponent {
 
     WebDriver driver;
 
     By alertPopup = By.id("alertPopup");
+    By simpleAlert = By.id("simple-alert");
 
     public CommonComponent(WebDriver driver) {
         this.driver = driver;
@@ -35,5 +39,16 @@ public class CommonComponent {
             return popup.getText();
         }
         else return "Popup not displayed";
+    }
+
+    public List<String> getSimpleAlertsText(){
+        waitForElementToAppear(simpleAlert);
+        List<WebElement> popups = driver.findElements(simpleAlert);
+        if(popups.getFirst().isDisplayed()){
+            return popups.stream()
+                    .map(WebElement::getText)
+                    .collect(Collectors.toList());
+        }
+        else return List.of();
     }
 }
