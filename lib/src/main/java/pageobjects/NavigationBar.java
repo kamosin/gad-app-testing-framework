@@ -21,6 +21,8 @@ public class NavigationBar {
     WebElement avatarIcon;
     @FindBy(id="registerBtn")
     WebElement registerButton;
+    @FindBy(id = "logoutBtn")
+    WebElement logoutButton;
     @FindBy(id="btnArticles")
     WebElement articlesButton;
     @FindBy(id = "add-new")
@@ -34,6 +36,13 @@ public class NavigationBar {
         hoverOverElement.moveToElement(avatarIcon).perform();
         registerButton.click();
         return new RegistrationPage(driver);
+    }
+
+    public LoginPage clickLogoutButton(){
+        Actions hoverOverElement = new Actions(driver);
+        hoverOverElement.moveToElement(avatarIcon).perform();
+        logoutButton.click();
+        return new LoginPage(driver);
     }
 
     public ArticlesPage clickArticlesPageButton(){

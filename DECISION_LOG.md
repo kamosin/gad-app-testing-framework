@@ -31,19 +31,19 @@
 
 **Date**: 2024/09/22
 
-**Context**: The project requires a robust framework for automating tests for both web applications and APIs. Selenium is chosen for web UI automation, while RestAssured is selected for API testing. Integrating both into the test framework is essential to achieve comprehensive test coverage for both layers of the application. This decision will ensure unified test management and reporting across both types of tests.
+**Context**: The project requires a robust framework for automating tests for both web applications and APIs. Selenium is chosen for web UI automation, while RestAssured is selected for api testing. Integrating both into the test framework is essential to achieve comprehensive test coverage for both layers of the application. This decision will ensure unified test management and reporting across both types of tests.
 
-**Proposed solution**: Integrate Selenium for automating browser-based UI tests and RestAssured for automating REST API tests within the same project. Dependencies for both tools will be added to the project via Gradle, allowing them to be used in the respective test cases.
+**Proposed solution**: Integrate Selenium for automating browser-based UI tests and RestAssured for automating REST api tests within the same project. Dependencies for both tools will be added to the project via Gradle, allowing them to be used in the respective test cases.
 
 **Pros**:
 - Selenium is a widely adopted tool for UI automation, with strong community support.
-- RestAssured simplifies API testing by providing a fluent interface for REST services.
+- RestAssured simplifies api testing by providing a fluent interface for REST services.
 - Both tools integrate well with existing Java-based test framework like TestNG
-- Allows unified reporting and test execution for both UI and API tests in the same test suite.
+- Allows unified reporting and test execution for both UI and api tests in the same test suite.
 
 **Cons**
 - Increases the project’s external dependencies, leading to potential version conflicts or maintenance overhead.
-- Requires managing two different testing paradigms (UI and API) within the same project.
+- Requires managing two different testing paradigms (UI and api) within the same project.
 - Chosen technologies might lack in some helpful features that are available for example by Playwright
 
 **Decision**: Decided
@@ -58,12 +58,12 @@
 
 **Date**: 2024/09/24
 
-**Context**:  In the process of building and testing a web application, it became necessary to convert Java objects to JSON format and vice versa for API requests and responses. We needed a robust and flexible library to handle serialization and deserialization
+**Context**:  In the process of building and testing a web application, it became necessary to convert Java objects to JSON format and vice versa for api requests and responses. We needed a robust and flexible library to handle serialization and deserialization
 
 **Proposed solution**: Adopt the Jackson Databind library for object-to-JSON mapping and JSON-to-object deserialization
 
 **Pros**:
-- Ease of use: Simple API (ObjectMapper) to convert between Java objects and JSON.
+- Ease of use: Simple api (ObjectMapper) to convert between Java objects and JSON.
 - Performance: Efficient processing of JSON data at scale.
 - Wide adoption: Well-maintained and widely used in the Java ecosystem.
 

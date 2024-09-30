@@ -1,17 +1,18 @@
-package API;
+package api;
 
 import io.restassured.RestAssured;
 
-public class OtherApis {
+public class OtherFeaturesService {
 
+    private final RequestManager requestManager;
     private static final String restoreDbEndpoint = "/restoreDB";
 
+    public OtherFeaturesService(RequestManager requestManager) {
+        this.requestManager = requestManager;
+    }
+
     public void restoreDb(String baseURI){
-        RestAssured
-                .given()
-                .baseUri(baseURI)
-                .when()
-                .get(restoreDbEndpoint)
+        requestManager.get(restoreDbEndpoint)
                 .then()
                 .statusCode(201)
                 .log()

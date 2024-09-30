@@ -7,6 +7,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class CommonComponent {
 
@@ -29,11 +32,6 @@ public class CommonComponent {
         wait.until(ExpectedConditions.visibilityOfElementLocated(element));
     }
 
-    public void waitForSimpleAlertToDisappear(){
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(simpleAlert));
-    }
-
     public String getPopupText(){
         waitForElementToAppear(alertPopup);
         WebElement popup = driver.findElement(alertPopup);
@@ -43,12 +41,14 @@ public class CommonComponent {
         else return "Popup not displayed";
     }
 
-    public String getSimpleAlertText(){
+    public List<String> getSimpleAlertsText(){
         waitForElementToAppear(simpleAlert);
-        WebElement popup = driver.findElement(simpleAlert);
-        if(popup.isDisplayed()){
-            return popup.getText();
+        List<WebElement> popups = driver.findElements(simpleAlert);
+        if(popups.getFirst().isDisplayed()){
+            return popups.stream()
+                    .map(WebElement::getText)
+                    .collect(Collectors.toList());
         }
-        else return "Popup not displayed";
+        else return List.of();
     }
 }

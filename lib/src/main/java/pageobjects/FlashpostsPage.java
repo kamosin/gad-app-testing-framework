@@ -23,6 +23,7 @@ public class FlashpostsPage {
     List<WebElement> flashpostContainers;
 
     By flashpostAuthor = By.cssSelector(".flashpost-author");
+    By flashpostText = By.cssSelector(".flashpost-message");
 
     public NewFlashpostModal clickCreateFlashpostsButton(){
         createFlashpostsButton.click();
@@ -31,6 +32,10 @@ public class FlashpostsPage {
 
     public String getFlashpostAuthor(int containerNumber){
         return flashpostContainers.get(containerNumber).findElement(flashpostAuthor).getText();
+    }
+
+    public String getFlashpostText(int containerNumber){
+        return flashpostContainers.get(containerNumber).findElement(flashpostText).getText();
     }
 
     public int getNumberOfFlashposts(){

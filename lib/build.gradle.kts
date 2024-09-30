@@ -28,6 +28,9 @@ dependencies {
     implementation(libs.selenium)
     implementation(libs.restassured)
     implementation(libs.jacksondatabind)
+    implementation(libs.javafaker)
+
+
 
 }
 
