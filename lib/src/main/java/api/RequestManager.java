@@ -21,6 +21,10 @@ public class RequestManager {
         this.token = getJsonPath(response, "access_token");
     }
 
+    public void logout(){
+        this.token = "";
+    }
+
     public RequestSpecification createRequestSpecification() {
         RequestSpecification requestSpecification = new RequestSpecBuilder()
                 .setBaseUri(baseUrl)
@@ -33,7 +37,7 @@ public class RequestManager {
         return requestSpecification;
     }
 
-    public Response post(String endpoint, Object body) {
+    public <T> Response post(String endpoint, T body) {
         return RestAssured.given()
                 .spec(createRequestSpecification())
                 .body(body)

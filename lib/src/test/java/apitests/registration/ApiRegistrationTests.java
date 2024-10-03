@@ -1,7 +1,6 @@
 package apitests.registration;
 
 import api.LoginService;
-import api.RequestManager;
 import api.UserService;
 import api.models.LoginRequest;
 import api.models.UserRequest;
@@ -21,7 +20,7 @@ public class ApiRegistrationTests extends BaseApiTest {
         userService = new UserService(requestManager);
     }
 
-    @Test
+    @Test(groups = {"api", "registration"})
     public void userRegistrationAndLoginWithProperData(){
         //Given
 
@@ -37,7 +36,7 @@ public class ApiRegistrationTests extends BaseApiTest {
         Assert.assertEquals(loginResponse.getStatusCode(), 200);
     }
 
-    @Test
+    @Test(groups = {"api"})
     public void registerWithExistingEmail(){
         //Given
         var userService = new UserService(requestManager);
@@ -54,7 +53,7 @@ public class ApiRegistrationTests extends BaseApiTest {
         Assert.assertEquals(TestUtils.getJsonPath(userResponse, "error.message"), ReusableData.emailNotUniqueApiMessage);
     }
 
-    @Test
+    @Test(groups = {"api"})
     public void registerOnlyWithEmail(){
         //Given
         var userService = new UserService(requestManager);
@@ -68,7 +67,7 @@ public class ApiRegistrationTests extends BaseApiTest {
         Assert.assertEquals(TestUtils.getJsonPath(userResponse, "error.message"), ReusableData.mandatoryFieldsMissingApiMessage);
     }
 
-    @Test
+    @Test(groups = {"api"})
     public void registerWithWrongDateFormat(){
         //Given
         var userService = new UserService(requestManager);

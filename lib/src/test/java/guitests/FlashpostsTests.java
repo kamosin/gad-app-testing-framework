@@ -1,3 +1,5 @@
+package guitests;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageobjects.LandingPage;

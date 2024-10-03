@@ -10,8 +10,9 @@ public class BaseApiTest {
 
     protected RequestManager requestManager;
 
-    @BeforeMethod
-    public void setup() {
+    @BeforeMethod(groups = "api")
+    public void baseSetup() {
+        System.out.println("setting");
         requestManager = new RequestManager();
     }
 

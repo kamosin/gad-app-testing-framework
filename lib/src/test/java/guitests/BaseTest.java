@@ -1,3 +1,5 @@
+package guitests;
+
 import api.OtherFeaturesService;
 import api.RequestManager;
 import api.models.UserRequest;
@@ -6,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import pageobjects.*;
 import testutlis.TestDataGenerator;
@@ -19,13 +22,13 @@ public class BaseTest {
     String appUrl = TestUtils.getGlobalValue("baseUrl");
     RequestManager requestManager;
 
-    @BeforeMethod
+    @BeforeMethod(groups = "api")
     public void launchApplication(){
         initializeDriver();
         var landingPage = new LandingPage(driver);
         landingPage.goToLandingPage(appUrl);
-        restoreDatabase();
         requestManager = new RequestManager();
+        restoreDatabase();
     }
 
     private void restoreDatabase() {

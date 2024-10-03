@@ -1,3 +1,5 @@
+package guitests;
+
 import api.RequestManager;
 import api.UserService;
 

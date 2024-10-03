@@ -23,4 +23,8 @@ public class FlashpostsService{
     public Response createFlashpost(FlashpostRequest flashpostRequest){
         return requestManager.post(flashPostsEndpoint, flashpostRequest);
     }
+
+    public int getNumberOfFlashposts(){
+        return getFlashposts().jsonPath().getList("").size();
+    }
 }
