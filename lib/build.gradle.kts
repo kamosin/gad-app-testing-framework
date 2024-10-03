@@ -43,5 +43,10 @@ java {
 
 tasks.named<Test>("test") {
     // Use TestNG for unit tests.
-    useTestNG()
+    useTestNG {
+//        suites("src/test/resources/testng.xml")
+    }
+
+
 }
+

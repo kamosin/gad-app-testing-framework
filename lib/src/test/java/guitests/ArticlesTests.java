@@ -1,3 +1,5 @@
+package guitests;
+
 import api.ArticlesService;
 import api.RequestManager;
 import org.testng.Assert;
@@ -8,7 +10,7 @@ import testutlis.TestDataGenerator;
 
 public class ArticlesTests extends BaseTest{
 
-    @Test
+    @Test(groups = "gui")
     public void AddArticleWithProperData(){
         //Given
         var newArticleTitle = TestDataGenerator.generateText(20);
@@ -31,7 +33,7 @@ public class ArticlesTests extends BaseTest{
         Assert.assertEquals(articlesAPI.getNumberOfArticles(appUrl), numberOfArticlesBeforeAdding +1);
     }
 
-    @Test
+    @Test(groups = "gui")
     public void AddArticleWithMissingData(){
         //Given
         var requestManager = new RequestManager();
@@ -59,7 +61,7 @@ public class ArticlesTests extends BaseTest{
         Assert.assertEquals(articlesAPI.getNumberOfArticles(appUrl), numberOfArticlesBeforeAdding);
     }
 
-    @Test
+    @Test(groups = "gui")
     public void TryAddArticleByNotLoggedUser(){
         //When
         LandingPage landingPage= new LandingPage(driver);
@@ -69,7 +71,7 @@ public class ArticlesTests extends BaseTest{
         Assert.assertFalse(navigationBar.isAddArticleButtonVisible());
     }
 
-    @Test
+    @Test(groups = "gui")
     public void AddArticleWithPolishAndSpecialCharacters(){
         //Given
         var polishAndSpecialCharactersTitle = "Żółw wśród@ raf koralowych – #wyjątkowa podróż pełna emocji i % niespodzianek!";

@@ -7,6 +7,7 @@ import api.UserService;
 import api.models.ArticleRequest;
 import api.models.LoginRequest;
 import api.models.UserRequest;
+import api.testutils.TestUtils;
 import apitests.BaseApiTest;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -20,11 +21,12 @@ public class LoggedInArticlesTests extends BaseApiTest {
 
     @BeforeMethod
     public void setUp(){
+        System.out.println("Setting up");
         articlesService = new ArticlesService(requestManager);
         authUser();
     }
 
-    @Test
+    @Test(groups = {"api"})
     public void addArticleByRegisteredAndLoggedInUser(){
         //Given
         var article = TestDataGenerator.generateArticle();
@@ -37,7 +39,25 @@ public class LoggedInArticlesTests extends BaseApiTest {
 
     }
 
-    @Test
+    @Test(groups = {"api"})
+    public void addArticleWithMissingData(){
+        //Given
+        var articleWithoutBody = new ArticleRequest(TestDataGenerator.generateArticleTitle(), "", TestDataGenerator.currentDate(), ReusableData.articlePictureName);
+        var articleWithoutTitle = new ArticleRequest("", TestDataGenerator.generateText(50), TestDataGenerator.currentDate(), ReusableData.articlePictureName);
+        //When
+        var response = articlesService.createArticle(articleWithoutBody);
+        //Then
+        Assert.assertEquals(response.statusCode(), 422);
+        Assert.assertEquals(TestUtils.getJsonPath(response, "error.message"), ReusableData.mandatoryFieldsMissingApiMessage);
+        //When
+        response = articlesService.createArticle(articleWithoutTitle);
+        //Then
+        Assert.assertEquals(response.statusCode(), 422);
+        Assert.assertEquals(TestUtils.getJsonPath(response, "error.message"), ReusableData.mandatoryFieldsMissingApiMessage);
+
+    }
+
+    @Test(groups = {"api"})
     public void AddArticleWithTitleLongerThan128Characters(){
         //Given
         var article = new ArticleRequest(TestDataGenerator.generateText(130), TestDataGenerator.generateText(100),

@@ -1,12 +1,12 @@
 package apitests.flashposts;
 
 import api.FlashpostsService;
-import api.RequestManager;
-import api.UserService;
-import api.models.LoginRequest;
-import api.models.UserRequest;
+import api.LoginService;
 import api.models.flashpost.FlashpostRequest;
 import api.models.flashpost.FlashpostSettings;
+import api.testutils.TestUtils;
+import apitests.BaseApiTest;
+import org.testng.Assert;
 import testutlis.ReusableData;
 import testutlis.TestDataGenerator;
 import org.testng.annotations.BeforeMethod;
@@ -14,50 +14,80 @@ import org.testng.annotations.Test;
 
 import static org.hamcrest.Matchers.*;
 
-public class LoggedInFlashpostsTests {
+public class LoggedInFlashpostsTests extends BaseApiTest {
 
-    UserRequest user;
     private FlashpostsService flashpostsService;
-    RequestManager requestManager = new RequestManager();
-
-    public void authUser() {
-        var userService = new UserService(requestManager);
-        user = TestDataGenerator.generateUser();
-        var response = userService.createUser(user);
-        response.then().statusCode(201);
-        requestManager.setToken(new LoginRequest(user.email(), user.password()));
-    }
 
     @BeforeMethod
-    public void setup(){
-        authUser();
+    public void setUp(){
         flashpostsService = new FlashpostsService(requestManager);
+        authUser();
     }
 
-    @Test
+    @Test(groups = {"api"})
     public void getAllFlashposts(){
-        //Act
+        //When
         var response = flashpostsService.getFlashposts();
-        //Assert
-        response.then().assertThat().statusCode(200).body(not(emptyOrNullString()));
+        //Then
+        Assert.assertEquals(response.getStatusCode() ,200);
     }
 
-    @Test
+    @Test(groups = {"api"})
     public void createFlashpostWithValidData(){
         //Given
-        var flashpostRequest = new FlashpostRequest("Flashpost test12", new FlashpostSettings("#dddfff"), false);
+        var flashpostRequest = new FlashpostRequest(TestDataGenerator.generateText(50), new FlashpostSettings("#dddfff"), false);
+        var initialNrOfFlashposts = flashpostsService.getNumberOfFlashposts();
         //When
-        flashpostsService.createFlashpost(flashpostRequest).then().statusCode(201).body(not(emptyOrNullString()));
+        var response = flashpostsService.createFlashpost(flashpostRequest);
+        //Then
+        var nrOfFlaspostsAfterCreation = initialNrOfFlashposts + 1;
+        Assert.assertEquals(response.statusCode(), 201);
+        Assert.assertEquals(flashpostsService.getNumberOfFlashposts(), nrOfFlaspostsAfterCreation);
     }
 
-    @Test
-    public void createFlashpostWithInvalidData(){
+    @Test(groups = {"api"})
+    public void createFlashpostWithTooLongMessage(){
         //Given
         var flashpostRequest = new FlashpostRequest("Automatyzuj testy z Playwright i Git! Zwiększ efektywność, wdrażaj szybciej i poprawiaj jakość kodu. Przyszłość IT w twoich rękach!", new FlashpostSettings(null), true);
         //When
         var response = flashpostsService.createFlashpost(flashpostRequest);
-        response.then().statusCode(422);
+        //Then
+        Assert.assertEquals(response.statusCode(), 422);
         response.then().body("error.message", containsString(ReusableData.flashpostsFieldValidationMessage));
+
+    }
+
+    @Test(groups = {"api"})
+    public void createPublicFlashpostThenLogoutAndCheckVisibility(){
+        //Given
+        var flashpostText = TestDataGenerator.generateText(50);
+        var flashpostRequest = new FlashpostRequest(flashpostText, new FlashpostSettings("#dddfff"), true);
+        var loginService = new LoginService(requestManager);
+        //When
+        var response = flashpostsService.createFlashpost(flashpostRequest);
+        loginService.logout();
+
+        //Then
+        response = flashpostsService.getFlashpostsById(Integer.parseInt(TestUtils.getJsonPath(response, "id")));
+        response.then().log().all();
+        Assert.assertEquals(response.getStatusCode(), 200);
+        Assert.assertEquals(TestUtils.getJsonPath(response, "body"), flashpostText);
+    }
+
+    @Test(groups = {"api"})
+    public void createNonPublicFlashpostThenLogoutAndCheckVisibility(){
+        //Given
+        var flashpostText = TestDataGenerator.generateText(50);
+        var flashpostRequest = new FlashpostRequest(flashpostText, new FlashpostSettings("#dddfff"), false);
+        var loginService = new LoginService(requestManager);
+        //When
+        var response = flashpostsService.createFlashpost(flashpostRequest);
+        loginService.logout();
+        //Then
+        response = flashpostsService.getFlashpostsById(Integer.parseInt(TestUtils.getJsonPath(response, "id")));
+        response.then().log().all();
+        Assert.assertEquals(response.getStatusCode(), 401);
+        Assert.assertNotEquals(TestUtils.getJsonPath(response, "body"), flashpostText);
 
     }
 
