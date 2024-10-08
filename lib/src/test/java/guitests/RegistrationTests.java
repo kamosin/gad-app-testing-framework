@@ -16,7 +16,7 @@ public class RegistrationTests extends BaseTest {
 
     UserRequest user = TestDataGenerator.generateUser();
 
-    @Test
+    @Test(groups = "gui")
     public void RegistrationAndLoggingTest() {
         //Given
         var registrationPage = new RegistrationPage(driver);
@@ -36,7 +36,7 @@ public class RegistrationTests extends BaseTest {
         Assert.assertEquals(myAccountPage.getWelcomeText(), "Hi " + user.email() + "!");
     }
 
-    @Test
+    @Test(groups = "gui")
     public void RegistrationWithExistingUserEmail() {
         //Given
         var registrationPage = new RegistrationPage(driver);
@@ -52,7 +52,7 @@ public class RegistrationTests extends BaseTest {
         Assert.assertEquals(registrationInfo, ReusableData.emailNotUniqueExpectedMessage);
     }
 
-    @Test
+    @Test(groups = "gui")
     public void RegistrationWithOnlyEmail() {
         //Given
         var registrationPage = navigationBar.clickRegisterButton();
@@ -67,7 +67,7 @@ public class RegistrationTests extends BaseTest {
                 registrationPage.isFirstNameValidationTextVisible(ReusableData.requiredFieldMessage));
     }
 
-    @Test
+    @Test(groups = "gui")
     public void RegistrationWithWrongFormatData(){
         //Given
         var requestManager = new RequestManager();

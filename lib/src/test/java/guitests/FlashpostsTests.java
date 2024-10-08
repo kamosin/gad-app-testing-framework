@@ -10,7 +10,7 @@ import static testutlis.ReusableData.*;
 
 public class FlashpostsTests extends BaseTest{
 
-    @Test
+    @Test(groups = "gui")
     public void AddFlashpostWithCorrectData(){
         //Given
         var user = registerAndLogin();
@@ -25,7 +25,7 @@ public class FlashpostsTests extends BaseTest{
         Assert.assertEquals(flashpostsPage.getFlashpostAuthor(0), user.firstname() + " " + user.lastname());
     }
 
-    @Test
+    @Test(groups = "gui")
     public void AddFlashpostWithTooLongMessage(){
         //When
         registerAndLogin();
@@ -39,7 +39,7 @@ public class FlashpostsTests extends BaseTest{
         Assert.assertEquals(newFlashpostModal.getFlashpostTextLength(), length);
     }
 
-    @Test
+    @Test(groups = "gui")
     public void AddAFlashpostByNotLoggedInUser(){
         //When
         LandingPage landingPage = new LandingPage(driver);
@@ -58,7 +58,7 @@ public class FlashpostsTests extends BaseTest{
         Assert.assertNotEquals(flashpostsPage.getNumberOfFlashposts(), 0);
     }
 
-    @Test
+    @Test(groups = "gui")
     public void AddPublicFlashpostAndCheckByNonLoggedUser(){
         //Given
         var flashpostPublicMessage = TestDataGenerator.generateText(15);
@@ -77,7 +77,7 @@ public class FlashpostsTests extends BaseTest{
         Assert.assertEquals(flashpostsPage.getFlashpostText(0), flashpostPublicMessage);
     }
 
-    @Test
+    @Test(groups = "gui")
     public void AddNonPublicFlashpostAndCheckByNonLoggedUser(){
         //Given
         var flashpostPublicMessage = TestDataGenerator.generateText(15);

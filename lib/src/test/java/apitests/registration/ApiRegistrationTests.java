@@ -15,7 +15,7 @@ import testutlis.TestDataGenerator;
 public class ApiRegistrationTests extends BaseApiTest {
 
     UserService userService;
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void setUp(){
         userService = new UserService(requestManager);
     }

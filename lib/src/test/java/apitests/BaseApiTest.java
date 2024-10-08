@@ -12,7 +12,6 @@ public class BaseApiTest {
 
     @BeforeMethod(groups = "api")
     public void baseSetup() {
-        System.out.println("setting");
         requestManager = new RequestManager();
     }
 
