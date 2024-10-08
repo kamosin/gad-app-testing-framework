@@ -19,9 +19,8 @@ public class LoggedInArticlesTests extends BaseApiTest {
 
     ArticlesService articlesService;
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void setUp(){
-        System.out.println("Setting up");
         articlesService = new ArticlesService(requestManager);
         authUser();
     }

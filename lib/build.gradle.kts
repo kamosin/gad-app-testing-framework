@@ -17,7 +17,7 @@ repositories {
 
 dependencies {
     // Use TestNG framework, also requires calling test.useTestNG() below
-    testImplementation(libs.testng)
+    implementation(libs.testng)
 
     // This dependency is exported to consumers, that is to say found on their compile classpath.
     api(libs.commons.math3)
@@ -41,12 +41,27 @@ java {
     }
 }
 
+
 tasks.named<Test>("test") {
     // Use TestNG for unit tests.
     useTestNG {
-//        suites("src/test/resources/testng.xml")
+        outputDirectory = file("test-output")
+        if(project.hasProperty("api")) {
+            suites ("src/test/resources/testngApi.xml")
+        }
+
+        if(project.hasProperty("gui")){
+            suites("src/test/resources/testngGui.xml")
+        }
+
     }
 
 
 }
+
+
+
+
+
+
 

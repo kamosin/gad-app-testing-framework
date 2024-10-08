@@ -18,7 +18,7 @@ public class LoggedInFlashpostsTests extends BaseApiTest {
 
     private FlashpostsService flashpostsService;
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void setUp(){
         flashpostsService = new FlashpostsService(requestManager);
         authUser();
@@ -74,7 +74,7 @@ public class LoggedInFlashpostsTests extends BaseApiTest {
         Assert.assertEquals(TestUtils.getJsonPath(response, "body"), flashpostText);
     }
 
-    @Test(groups = {"api"})
+    @Test(groups = {"api", "brokenTests"})
     public void createNonPublicFlashpostThenLogoutAndCheckVisibility(){
         //Given
         var flashpostText = TestDataGenerator.generateText(50);

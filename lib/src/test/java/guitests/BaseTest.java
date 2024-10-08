@@ -22,7 +22,7 @@ public class BaseTest {
     String appUrl = TestUtils.getGlobalValue("baseUrl");
     RequestManager requestManager;
 
-    @BeforeMethod(groups = "api")
+    @BeforeMethod(alwaysRun = true)
     public void launchApplication(){
         initializeDriver();
         var landingPage = new LandingPage(driver);
@@ -43,7 +43,7 @@ public class BaseTest {
         driver.manage().window().maximize();
     }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void tearDown(){
         driver.close();
     }
