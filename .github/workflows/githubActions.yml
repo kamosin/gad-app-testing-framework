@@ -28,9 +28,8 @@ jobs:
         distribution: 'adopt'
 
     - name: Start Gad App
-      run: |
-        docker pull jaktestowac/gad:2.5.5
-        docker run -d -p 3000:3000 jaktestowac/gad:2.5.5
+      run:
+        docker run -d -p 3001:3000 jaktestowac/gad:2.5.5
     - name: Build with Gradle
       run: ./gradlew build
 
