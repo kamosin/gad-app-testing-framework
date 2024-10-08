@@ -12,6 +12,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    services:
+      gad-app:
+        image: jaktestowac/gad:2.5.5
+        ports:
+          - 3000:3000
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
@@ -22,6 +27,10 @@ jobs:
         java-version: '21'
         distribution: 'adopt'
 
+    - name: Start Gad App
+      run:
+        docker pull jaktestowac/gad:2.5.5
+        docker run -d -p 3000:3000 jaktestowac/gad:2.5.5
     - name: Build with Gradle
       run: ./gradlew build
 
