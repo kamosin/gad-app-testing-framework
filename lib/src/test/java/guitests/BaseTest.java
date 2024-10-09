@@ -37,7 +37,9 @@ public class BaseTest {
     }
 
     private void initializeDriver() {
-        driver = new ChromeDriver(new ChromeOptions());
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        driver = new ChromeDriver(options);
         commonComponent = new CommonComponent(driver);
         navigationBar = new NavigationBar(driver);
         driver.manage().window().maximize();
