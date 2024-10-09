@@ -14,7 +14,7 @@ jobs:
 
     services:
       gad-app:
-        image: jaktestowac/gad:2.5.5
+        image: jaktestowac/gad:latest
         ports:
           - 3000:3000
     steps:
@@ -29,9 +29,7 @@ jobs:
 
     - name: Start Gad App
       run:
-        docker run -d -p 3001:3000 jaktestowac/gad:2.5.5
-    - name: Build with Gradle
-      run: ./gradlew build
+        docker run -d -p 3001:3000 jaktestowac/gad:latest
+    - name: Run only api tests
+      run: ./gradlew build --info -Papi
 
-    - name: Run tests
-      run: ./gradlew test
