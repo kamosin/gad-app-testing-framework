@@ -28,7 +28,7 @@ public class BaseTest {
         var landingPage = new LandingPage(driver);
         landingPage.goToLandingPage(appUrl);
         requestManager = new RequestManager();
-        restoreDatabase();
+//        restoreDatabase();
     }
 
     private void restoreDatabase() {
@@ -41,6 +41,7 @@ public class BaseTest {
         commonComponent = new CommonComponent(driver);
         navigationBar = new NavigationBar(driver);
         driver.manage().window().maximize();
+
     }
 
     @AfterMethod(alwaysRun = true)

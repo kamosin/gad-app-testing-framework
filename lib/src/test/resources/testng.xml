@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="API test suite" parallel="classes" thread-count="4">
-    <test name="API">
+<suite name="ALL Tests suite">
+    <test name="API Tests" parallel="classes">
         <groups>
             <run>
                 <exclude name="brokenTests"/>
@@ -10,6 +10,16 @@
         </groups>
         <packages>
             <package name="apitests.*"/>
+        </packages>
+    </test>
+    <test name="GUI Tests" parallel="classes">
+        <groups>
+            <run>
+                <include name="gui"/>
+            </run>
+        </groups>
+        <packages>
+            <package name="guitests.*"/>
         </packages>
     </test>
 </suite>

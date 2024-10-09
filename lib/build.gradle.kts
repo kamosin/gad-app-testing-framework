@@ -41,24 +41,23 @@ java {
     }
 }
 
-
-tasks.named<Test>("test") {
-    // Use TestNG for unit tests.
+tasks.register<Test>("apiTest") {
     useTestNG {
-        outputDirectory = file("test-output")
-        if(project.hasProperty("api")) {
-            suites ("src/test/resources/testngApi.xml")
-        }
-
-        if(project.hasProperty("gui")){
-            suites("src/test/resources/testngGui.xml")
-        }
-
+        suites("src/test/resources/testngApi.xml")
     }
-
-
 }
 
+tasks.register<Test>("guiTest") {
+    useTestNG {
+        suites("src/test/resources/testngGui.xml")
+    }
+}
+
+tasks.register<Test>("allTests") {
+    useTestNG {
+        suites("src/test/resources/testng.xml")
+    }
+}
 
 
 

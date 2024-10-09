@@ -7,7 +7,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,33 +21,31 @@ public class CommonComponent {
         this.driver = driver;
     }
 
-    public void waitForElementToAppear(WebElement element){
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+    public void waitForElementToAppear(WebElement element) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOf(element));
     }
 
-    public void waitForElementToAppear(By element){
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+    public void waitForElementToAppear(By element) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated(element));
     }
 
-    public String getPopupText(){
+    public String getPopupText() {
         waitForElementToAppear(alertPopup);
         WebElement popup = driver.findElement(alertPopup);
-        if(popup.isDisplayed()){
+        if (popup.isDisplayed()) {
             return popup.getText();
-        }
-        else return "Popup not displayed";
+        } else return "Popup not displayed";
     }
 
-    public List<String> getSimpleAlertsText(){
+    public List<String> getSimpleAlertsText() {
         waitForElementToAppear(simpleAlert);
         List<WebElement> popups = driver.findElements(simpleAlert);
-        if(popups.getFirst().isDisplayed()){
+        if (popups.getFirst().isDisplayed()) {
             return popups.stream()
                     .map(WebElement::getText)
                     .collect(Collectors.toList());
-        }
-        else return List.of();
+        } else return List.of();
     }
 }

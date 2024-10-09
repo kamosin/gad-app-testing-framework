@@ -12,11 +12,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    services:
-      gad-app:
-        image: jaktestowac/gad:latest
-        ports:
-          - 3000:3000
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
@@ -30,6 +25,7 @@ jobs:
     - name: Start Gad App
       run:
         docker run -d -p 3001:3000 jaktestowac/gad:latest
-    - name: Run only api tests
-      run: ./gradlew build --info -Papi
+
+    - name: Run all Tests
+      run: ./gradlew clean allTests -i
 
