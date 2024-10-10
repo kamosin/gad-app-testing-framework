@@ -29,17 +29,14 @@ jobs:
     - name: Run all Tests
       run: ./gradlew clean allTests -i
 
-    - name: List files
-      run: ls -la
-      
     - name: Upload TestNG reports as artifact
       uses: actions/upload-artifact@v4
       with:
         name: testng-report
-        path: build/reports/
+        path: lib/build/reports/
 
     - name: Upload ExtentReports as artifact
       uses: actions/upload-artifact@v4
       with:
         name: extent-report
-        path: reports/extent-report.html
+        path: lib/reports/extent-report.html
