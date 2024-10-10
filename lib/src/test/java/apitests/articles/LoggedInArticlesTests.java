@@ -1,19 +1,14 @@
 package apitests.articles;
 
 import api.ArticlesService;
-import api.FlashpostsService;
-import api.RequestManager;
-import api.UserService;
 import api.models.ArticleRequest;
-import api.models.LoginRequest;
-import api.models.UserRequest;
 import api.testutils.TestUtils;
 import apitests.BaseApiTest;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import testutlis.ReusableData;
-import testutlis.TestDataGenerator;
+import testutils.ReusableData;
+import testutils.TestDataGenerator;
 
 public class LoggedInArticlesTests extends BaseApiTest {
 

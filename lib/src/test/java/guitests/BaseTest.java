@@ -8,10 +8,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import pageobjects.*;
-import testutlis.TestDataGenerator;
+import testutils.TestDataGenerator;
 
 public class BaseTest {
 
@@ -28,7 +27,7 @@ public class BaseTest {
         var landingPage = new LandingPage(driver);
         landingPage.goToLandingPage(appUrl);
         requestManager = new RequestManager();
-        restoreDatabase();
+//        restoreDatabase();
     }
 
     private void restoreDatabase() {
@@ -37,10 +36,13 @@ public class BaseTest {
     }
 
     private void initializeDriver() {
-        driver = new ChromeDriver(new ChromeOptions());
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        driver = new ChromeDriver(options);
         commonComponent = new CommonComponent(driver);
         navigationBar = new NavigationBar(driver);
         driver.manage().window().maximize();
+
     }
 
     @AfterMethod(alwaysRun = true)

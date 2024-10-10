@@ -1,4 +1,4 @@
-package testutlis;
+package testutils;
 
 import api.models.ArticleRequest;
 import api.models.UserRequest;

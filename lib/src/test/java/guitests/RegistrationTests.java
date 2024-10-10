@@ -9,17 +9,18 @@ import org.testng.annotations.Test;
 import pageobjects.LoginPage;
 import pageobjects.MyAccountPage;
 import pageobjects.RegistrationPage;
-import testutlis.ReusableData;
-import testutlis.TestDataGenerator;
+import testutils.ReusableData;
+import testutils.TestDataGenerator;
 
 public class RegistrationTests extends BaseTest {
 
-    UserRequest user = TestDataGenerator.generateUser();
+    UserRequest user;
 
     @Test(groups = "gui")
     public void RegistrationAndLoggingTest() {
         //Given
         var registrationPage = new RegistrationPage(driver);
+        user = TestDataGenerator.generateUser();
         //When
         String registrationInfo = registrationPage.registerWithAllFields(user.firstname(), user.lastname(), user.email(), user.birthDate(),
                 user.password(), user.avatar());
@@ -39,6 +40,7 @@ public class RegistrationTests extends BaseTest {
     @Test(groups = "gui")
     public void RegistrationWithExistingUserEmail() {
         //Given
+        user = TestDataGenerator.generateUser();
         var registrationPage = new RegistrationPage(driver);
 
         //When
@@ -55,6 +57,7 @@ public class RegistrationTests extends BaseTest {
     @Test(groups = "gui")
     public void RegistrationWithOnlyEmail() {
         //Given
+        user = TestDataGenerator.generateUser();
         var registrationPage = navigationBar.clickRegisterButton();
 
         //When
@@ -80,12 +83,12 @@ public class RegistrationTests extends BaseTest {
 
         //When
         var registrationPage = navigationBar.clickRegisterButton();
-        registrationPage.enterAllData(wrongFirstName, wrongLastName, wrongEmail, wrongDate, user.password(), user.avatar());
+        registrationPage.enterAllData(wrongFirstName, wrongLastName, wrongEmail, wrongDate, TestDataGenerator.generatePassword(), ReusableData.userAvatar);
         registrationPage.clickRegisterButton();
 
         //Then
-        Assert.assertTrue(registrationPage.isFirstNameValidationTextVisible(ReusableData.wrongFirstNameLastNameMessage) &&
-                registrationPage.isLastNameValidationTextVisible(ReusableData.wrongFirstNameLastNameMessage) &&
+        Assert.assertTrue(registrationPage.isFirstNameValidationTextVisible(ReusableData.wrongFirstNameMessage) &&
+                registrationPage.isLastNameValidationTextVisible(ReusableData.wrongLastNameMessage) &&
                 registrationPage.isEmailValidationTextVisible(ReusableData.wrongEmailMessage) &&
                 registrationPage.isDateValidationTextVisible(ReusableData.wrongDateMessage));
         Assert.assertEquals(userService.getNumberOfUsers(appUrl), numberOfUsersBeforeRegistration);

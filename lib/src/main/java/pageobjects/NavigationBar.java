@@ -27,7 +27,7 @@ public class NavigationBar {
     WebElement articlesButton;
     @FindBy(id = "add-new")
     WebElement addNewArticleButton;
-    @FindBy(id="btnFlashposts")
+    @FindBy(css = "button[data-testid='open-flashposts']")
     WebElement flashPostsButton;
     By addArticleBtn = By.id("add-new");
 
