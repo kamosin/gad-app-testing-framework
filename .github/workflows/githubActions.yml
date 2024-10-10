@@ -30,7 +30,7 @@ jobs:
       run: ./gradlew clean allTests -i
 
     - name: Upload ExtentReports as artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact
       with:
         name: extent-report
         path: reports/extent-report.html
