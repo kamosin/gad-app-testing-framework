@@ -14,7 +14,7 @@ public class ExtentReporter implements ITestListener, ISuiteListener {
 
     @Override
     public void onStart(ISuite suite) {
-        ExtentSparkReporter reporter = new ExtentSparkReporter(System.getProperty("user.dir") + "/reports/extent-report.html");
+        ExtentSparkReporter reporter = new ExtentSparkReporter("reports/extent-report.html");
         reporter.config().setReportName("Automation tests report");
         reporter.config().setDocumentTitle("Test results");
 
