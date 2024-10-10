@@ -27,6 +27,8 @@ public class RegistrationPage {
     WebElement emailInput;
     @FindBy(id="datepicker")
     WebElement datepickerInput;
+    @FindBy(id = "ui-datepicker-div")
+    WebElement datePicker;
     @FindBy(css = ".ui-datepicker-close")
     WebElement datePickerDoneButton;
     @FindBy(id="password")
@@ -104,6 +106,7 @@ public class RegistrationPage {
     }
 
     public void clickRegisterButton(){
+        commonComponent.waitForElementToDisappear(datePicker);
         registerButton.click();
     }
 

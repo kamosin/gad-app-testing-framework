@@ -5,8 +5,8 @@ import api.RequestManager;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageobjects.*;
-import testutlis.ReusableData;
-import testutlis.TestDataGenerator;
+import testutils.ReusableData;
+import testutils.TestDataGenerator;
 
 public class ArticlesTests extends BaseTest{
 

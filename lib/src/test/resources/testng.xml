@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="ALL Tests suite">
+    <listeners>
+        <listener class-name="testutils.retry.AnnotationTransformer"/>
+    </listeners>
     <test name="API Tests" parallel="classes">
         <groups>
             <run>

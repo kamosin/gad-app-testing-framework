@@ -3,10 +3,10 @@ package guitests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageobjects.LandingPage;
-import testutlis.TestDataGenerator;
+import testutils.TestDataGenerator;
 
 
-import static testutlis.ReusableData.*;
+import static testutils.ReusableData.*;
 
 public class FlashpostsTests extends BaseTest{
 

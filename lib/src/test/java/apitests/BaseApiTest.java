@@ -4,7 +4,7 @@ import api.RequestManager;
 import api.UserService;
 import api.models.LoginRequest;
 import org.testng.annotations.BeforeMethod;
-import testutlis.TestDataGenerator;
+import testutils.TestDataGenerator;
 
 public class BaseApiTest {
 

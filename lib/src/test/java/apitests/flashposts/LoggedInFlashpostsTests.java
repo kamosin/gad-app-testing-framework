@@ -7,8 +7,8 @@ import api.models.flashpost.FlashpostSettings;
 import api.testutils.TestUtils;
 import apitests.BaseApiTest;
 import org.testng.Assert;
-import testutlis.ReusableData;
-import testutlis.TestDataGenerator;
+import testutils.ReusableData;
+import testutils.TestDataGenerator;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 

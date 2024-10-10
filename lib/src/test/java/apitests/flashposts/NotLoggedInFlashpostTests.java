@@ -6,7 +6,7 @@ import api.models.flashpost.FlashpostSettings;
 import apitests.BaseApiTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import testutlis.TestDataGenerator;
+import testutils.TestDataGenerator;
 
 import static org.hamcrest.Matchers.emptyOrNullString;
 import static org.hamcrest.Matchers.not;

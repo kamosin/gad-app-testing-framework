@@ -9,8 +9,8 @@ import apitests.BaseApiTest;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import testutlis.ReusableData;
-import testutlis.TestDataGenerator;
+import testutils.ReusableData;
+import testutils.TestDataGenerator;
 
 public class ApiRegistrationTests extends BaseApiTest {
 

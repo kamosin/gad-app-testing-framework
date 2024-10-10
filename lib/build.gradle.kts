@@ -59,6 +59,10 @@ tasks.register<Test>("allTests") {
     }
 }
 
+tasks.named<Test>("test"){
+    useTestNG()
+}
+
 
 
 
