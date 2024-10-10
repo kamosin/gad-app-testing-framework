@@ -3,6 +3,7 @@
 <suite name="ALL Tests suite">
     <listeners>
         <listener class-name="testutils.retry.AnnotationTransformer"/>
+        <listener class-name="testutils.ExtentReporter"/>
     </listeners>
     <test name="API Tests" parallel="classes">
         <groups>
