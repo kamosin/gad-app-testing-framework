@@ -14,7 +14,7 @@ import testutils.TestDataGenerator;
 
 public class BaseTest {
 
-    WebDriver driver;
+    protected WebDriver driver;
     NavigationBar navigationBar;
     CommonComponent commonComponent;
     OtherFeaturesService otherFeaturesService;

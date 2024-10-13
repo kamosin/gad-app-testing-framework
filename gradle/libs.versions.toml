@@ -10,6 +10,7 @@ restassured = "5.5.0"
 jacksondatabind = "2.17.2"
 javafaker = "1.0.2"
 extentreports = "5.1.2"
+apachecommons = "2.17.0"
 
 
 [libraries]
@@ -21,3 +22,4 @@ restassured = { module = "io.rest-assured:rest-assured", version.ref = "restassu
 jacksondatabind = {module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jacksondatabind" }
 javafaker = {module = "com.github.javafaker:javafaker", version.ref = "javafaker" }
 extentreports = {module = "com.aventstack:extentreports", version.ref = "extentreports" }
+apachecommons = {module = "commons-io:commons-io", version.ref = "apachecommons" }
