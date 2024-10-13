@@ -29,6 +29,8 @@ dependencies {
     implementation(libs.restassured)
     implementation(libs.jacksondatabind)
     implementation(libs.javafaker)
+    implementation(libs.extentreports)
+    implementation(libs.apachecommons)
 
 
 
