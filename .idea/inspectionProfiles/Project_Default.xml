@@ -4,7 +4,7 @@
     <inspection_tool class="groupsTestNG" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="groups">
         <value>
-          <list size="7">
+          <list size="8">
             <item index="0" class="java.lang.String" itemvalue="logged" />
             <item index="1" class="java.lang.String" itemvalue="setup" />
             <item index="2" class="java.lang.String" itemvalue="skipSetup" />
@@ -12,6 +12,7 @@
             <item index="4" class="java.lang.String" itemvalue="gui" />
             <item index="5" class="java.lang.String" itemvalue="registration" />
             <item index="6" class="java.lang.String" itemvalue="brokenTests" />
+            <item index="7" class="java.lang.String" itemvalue="e2e" />
           </list>
         </value>
       </option>

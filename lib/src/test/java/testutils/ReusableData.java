@@ -20,6 +20,7 @@ public class ReusableData {
     public static final String emailNotUniqueApiMessage = "Email not unique";
     public static final String mandatoryFieldsMissingApiMessage = "One of mandatory field is missing";
     public static final String invalidEmailFormatApiMessage = "Invalid email";
+    public static final String expectedCommentCreatedMessage = "Comment was created";
 
     //Pictures
     public static final String articlePictureName = "it-tester-1c4c6592-61aa-471c-866b-a438a06de921.jpg";

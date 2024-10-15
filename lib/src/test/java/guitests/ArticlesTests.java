@@ -5,6 +5,7 @@ import api.RequestManager;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageobjects.*;
+import pageobjects.articles.NewArticleModal;
 import testutils.ReusableData;
 import testutils.TestDataGenerator;
 

@@ -15,8 +15,8 @@ import testutils.TestDataGenerator;
 public class BaseTest {
 
     public WebDriver driver;
-    NavigationBar navigationBar;
-    CommonComponent commonComponent;
+    protected NavigationBar navigationBar;
+    protected CommonComponent commonComponent;
     OtherFeaturesService otherFeaturesService;
     String appUrl = TestUtils.getGlobalValue("baseUrl");
     RequestManager requestManager;
@@ -37,7 +37,7 @@ public class BaseTest {
 
     private void initializeDriver() {
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless");
+//        options.addArguments("--headless");
         driver = new ChromeDriver(options);
         commonComponent = new CommonComponent(driver);
         navigationBar = new NavigationBar(driver);
