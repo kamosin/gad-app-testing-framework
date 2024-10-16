@@ -356,3 +356,4 @@
 4. "Flashpost created successfully" message on the upper right corner. Flashpost visible on top of the list.
 5. User redirected to login page.
 6. Flashposts page is displayed. Flashpost with text "Am I non-public????" not visible on the list of flashposts.
+
