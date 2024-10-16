@@ -10,15 +10,22 @@ import pageobjects.articles.ArticlesPage;
 import pageobjects.articles.NewArticleModal;
 import pageobjects.comments.CommentsPage;
 import pageobjects.flashposts.FlashpostsPage;
+import utils.decorators.RetryDecorator;
+import utils.decorators.WaitDecorator;
+import utils.decorators.WebElementActions;
+import utils.decorators.WebElementDecorator;
 
 public class NavigationBar {
     WebDriver driver;
     CommonComponent commonComponent;
+    private WebElementDecorator webElementActions;
 
     public NavigationBar(WebDriver driver) {
         this.driver = driver;
         this.commonComponent = new CommonComponent(driver);
         PageFactory.initElements(driver, this);
+        webElementActions = new WebElementActions();
+        webElementActions = new RetryDecorator(new WaitDecorator(new WebElementActions(), driver), 3);
     }
 
     @FindBy(id="avatar")
@@ -52,7 +59,7 @@ public class NavigationBar {
     }
 
     public ArticlesPage clickArticlesPageButton(){
-        articlesButton.click();
+        webElementActions.click(articlesButton);
         return new ArticlesPage(driver);
     }
 
