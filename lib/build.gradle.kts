@@ -31,6 +31,7 @@ dependencies {
     implementation(libs.javafaker)
     implementation(libs.extentreports)
     implementation(libs.apachecommons)
+    implementation(libs.logback)
 
 
 
