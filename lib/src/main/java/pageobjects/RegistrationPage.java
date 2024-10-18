@@ -5,26 +5,17 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
-import utils.decorators.RetryDecorator;
-import utils.decorators.WaitDecorator;
-import utils.decorators.WebElementActions;
-import utils.decorators.WebElementDecorator;
 
 public class RegistrationPage {
 
     WebDriver driver;
     CommonComponent commonComponent;
     NavigationBar navigationBar;
-    private WebElementDecorator webElementActions;
-
     public RegistrationPage(WebDriver driver) {
         this.driver = driver;
         this.commonComponent = new CommonComponent(driver);
         this.navigationBar = new NavigationBar(driver);
         PageFactory.initElements(driver, this);
-        webElementActions = new WebElementActions();
-        webElementActions = new RetryDecorator(new WaitDecorator(new WebElementActions(), driver), 3);
-
     }
 
     @FindBy(id="firstname")
@@ -91,7 +82,7 @@ public class RegistrationPage {
 
     public void enterDate(String date){
         datepickerInput.sendKeys(date);
-        webElementActions.click(datePickerDoneButton);
+        datePickerDoneButton.click();
     }
 
     public void enterPassword(String password){
@@ -115,7 +106,7 @@ public class RegistrationPage {
 
     public void clickRegisterButton(){
         commonComponent.waitForElementToDisappear(datePicker);
-        webElementActions.click(registerButton);
+        registerButton.click();
     }
 
     public String registerWithAllFields(String firstName, String lastName, String email, String date,
