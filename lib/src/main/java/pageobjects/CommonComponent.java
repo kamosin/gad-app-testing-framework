@@ -31,6 +31,11 @@ public class CommonComponent {
         wait.until(ExpectedConditions.visibilityOfElementLocated(element));
     }
 
+    public void waitForElementsToAppear(List<WebElement> elements) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfAllElements(elements));
+    }
+
     public void waitForElementToDisappear(WebElement element) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.invisibilityOf(element));

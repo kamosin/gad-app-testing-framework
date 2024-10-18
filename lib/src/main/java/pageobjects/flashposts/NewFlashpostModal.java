@@ -1,4 +1,4 @@
-package pageobjects;
+package pageobjects.flashposts;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -25,6 +25,13 @@ public class NewFlashpostModal {
     @FindBy(id = "public-checkbox")
     WebElement publicCheckbox;
 
+    public void enterAllFlashpostData(String text, String hexColor, boolean isPublic){
+        enterFlashpostData(text);
+        setBackgroundColor(hexColor);
+        if(isPublic){
+            clickCheckbox();
+        }
+    }
     public void enterFlashpostData(String text){
         flashpostTextArea.sendKeys(text);
     }

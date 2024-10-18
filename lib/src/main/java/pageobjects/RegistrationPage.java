@@ -11,7 +11,6 @@ public class RegistrationPage {
     WebDriver driver;
     CommonComponent commonComponent;
     NavigationBar navigationBar;
-
     public RegistrationPage(WebDriver driver) {
         this.driver = driver;
         this.commonComponent = new CommonComponent(driver);
@@ -50,22 +49,27 @@ public class RegistrationPage {
     WebElement passwordValidation;
 
     public boolean isFirstNameValidationTextVisible(String text){
+        commonComponent.waitForElementToAppear(firstNameValidation);
         return firstNameValidation.isDisplayed() && firstNameValidation.getText().equals(text);
     }
 
     public boolean isLastNameValidationTextVisible(String text){
+        commonComponent.waitForElementToAppear(lastNameValidation);
         return lastNameValidation.isDisplayed() && lastNameValidation.getText().equals(text);
     }
 
     public boolean isEmailValidationTextVisible(String text){
+        commonComponent.waitForElementToAppear(emailValidation);
         return emailValidation.isDisplayed() && emailValidation.getText().equals(text);
     }
 
     public boolean isDateValidationTextVisible(String text){
+        commonComponent.waitForElementToAppear(dateValidation);
         return dateValidation.isDisplayed() && dateValidation.getText().equals(text);
     }
 
     public boolean isPasswordValidationTextVisible(String text){
+        commonComponent.waitForElementToAppear(passwordValidation);
         return passwordValidation.isDisplayed() && passwordValidation.getText().equals(text);
     }
 

@@ -15,8 +15,8 @@ import testutils.TestDataGenerator;
 public class BaseTest {
 
     public WebDriver driver;
-    NavigationBar navigationBar;
-    CommonComponent commonComponent;
+    protected NavigationBar navigationBar;
+    protected CommonComponent commonComponent;
     OtherFeaturesService otherFeaturesService;
     String appUrl = TestUtils.getGlobalValue("baseUrl");
     RequestManager requestManager;

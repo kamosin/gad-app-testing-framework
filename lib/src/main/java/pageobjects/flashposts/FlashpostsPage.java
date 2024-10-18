@@ -1,4 +1,4 @@
-package pageobjects;
+package pageobjects.flashposts;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -24,6 +24,12 @@ public class FlashpostsPage {
 
     By flashpostAuthor = By.cssSelector(".flashpost-author");
     By flashpostText = By.cssSelector(".flashpost-message");
+
+    public void createNewFlashpost(String text, String hexColor, boolean isPublic){
+        var flashpostsModal = clickCreateFlashpostsButton();
+        flashpostsModal.enterAllFlashpostData(text, hexColor, isPublic);
+        flashpostsModal.clickCreateButton();
+    }
 
     public NewFlashpostModal clickCreateFlashpostsButton(){
         createFlashpostsButton.click();
