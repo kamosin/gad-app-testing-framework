@@ -118,9 +118,9 @@ jobs:
       - name: Combine Reports
         run: |
           mkdir -p reports/combined
-          cp -r reports/e2e/* reports/combined/
-          cp -r reports/api/* reports/combined/
-          cp -r reports/gui/* reports/combined/
+          cp -r reports/e2e/* reports/combined/e2e/
+          cp -r reports/api/* reports/combined/api/
+          cp -r reports/gui/* reports/combined/gui/
 
       - name: Upload Combined Report as Artifact
         uses: actions/upload-artifact@v4
