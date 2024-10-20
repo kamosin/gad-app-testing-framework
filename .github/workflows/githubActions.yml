@@ -51,6 +51,9 @@ jobs:
           java-version: '21'
           distribution: 'adopt'
 
+      - name: Start Gad App
+        run: docker run -d -p 3001:3000 jaktestowac/gad:latest
+
       - name: Run API Tests
         run: ./gradlew clean apiTests -i
 
@@ -76,6 +79,9 @@ jobs:
           java-version: '21'
           distribution: 'adopt'
 
+      - name: Start Gad App
+        run: docker run -d -p 3001:3000 jaktestowac/gad:latest
+
       - name: Run GUI Tests
         run: ./gradlew clean guiTests -i
 
@@ -89,6 +95,7 @@ jobs:
   gatherReports:
     runs-on: ubuntu-latest
     needs: [e2eTests, apiTests, guiTests]
+    if: always()
     steps:
       - name: Download E2E TestNG Report
         uses: actions/download-artifact@v4
