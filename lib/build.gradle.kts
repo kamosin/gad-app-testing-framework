@@ -62,6 +62,12 @@ tasks.register<Test>("allTests") {
     }
 }
 
+tasks.register<Test>("e2eTests") {
+    useTestNG {
+        suites("src/test/resources/testngE2E.xml")
+    }
+}
+
 tasks.named<Test>("test"){
     useTestNG()
 }
