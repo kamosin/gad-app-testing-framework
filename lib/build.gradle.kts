@@ -44,13 +44,13 @@ java {
     }
 }
 
-tasks.register<Test>("apiTest") {
+tasks.register<Test>("apiTests") {
     useTestNG {
         suites("src/test/resources/testngApi.xml")
     }
 }
 
-tasks.register<Test>("guiTest") {
+tasks.register<Test>("guiTests") {
     useTestNG {
         suites("src/test/resources/testngGui.xml")
     }
@@ -59,6 +59,12 @@ tasks.register<Test>("guiTest") {
 tasks.register<Test>("allTests") {
     useTestNG {
         suites("src/test/resources/testng.xml")
+    }
+}
+
+tasks.register<Test>("e2eTests") {
+    useTestNG {
+        suites("src/test/resources/testngE2E.xml")
     }
 }
 

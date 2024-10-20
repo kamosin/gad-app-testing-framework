@@ -11,7 +11,7 @@ import testutils.TestDataGenerator;
 
 import static testutils.ReusableData.flashpostCreatedMessage;
 
-public class E2ETest1 extends BaseTest {
+public class E2EGad1Test extends BaseTest {
 
     @Test(groups = "e2e")
     public void test1() throws InterruptedException {

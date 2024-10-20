@@ -1,4 +1,4 @@
-name: Simple CI Pipeline
+name: Simple CI Tests Pipeline
 
 on:
   push:
@@ -9,37 +9,121 @@ on:
       - develop
 
 jobs:
-  build:
+  e2eTests:
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up JDK 21
-      uses: actions/setup-java@v3
-      with:
-        java-version: '21'
-        distribution: 'adopt'
+      - name: Set up JDK 21
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'adopt'
 
-    - name: Start Gad App
-      run:
-        docker run -d -p 3001:3000 jaktestowac/gad:latest
+      - name: Start Gad App
+        run: docker run -d -p 3001:3000 jaktestowac/gad:latest
 
-    - name: Run all Tests
-      run: ./gradlew clean allTests -i
+      - name: Run E2E Tests
+        run: ./gradlew clean e2eTests -i
 
-    - name: Upload TestNG reports as artifact
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: testng-report
-        path: lib/build/reports/
+      - name: Upload ExtentReports as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-extent-report
+          path: lib/reports/
 
-    - name: Upload ExtentReports as artifact
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: extent-report
-        path: lib/reports/
+  apiTests:
+    runs-on: ubuntu-latest
+    needs: e2eTests
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'adopt'
+
+      - name: Start Gad App
+        run: docker run -d -p 3001:3000 jaktestowac/gad:latest
+
+      - name: Run API Tests
+        run: ./gradlew clean apiTests -i
+
+      - name: Upload ExtentReports as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-extent-report
+          path: lib/reports/
+
+  guiTests:
+    runs-on: ubuntu-latest
+    needs: e2eTests
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'adopt'
+
+      - name: Start Gad App
+        run: docker run -d -p 3001:3000 jaktestowac/gad:latest
+
+      - name: Run GUI Tests
+        run: ./gradlew clean guiTests -i
+
+      - name: Upload ExtentReports as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gui-extent-report
+          path: lib/reports/
+
+  gatherReports:
+    runs-on: ubuntu-latest
+    needs: [e2eTests, apiTests, guiTests]
+    if: always()
+    steps:
+      - name: Download E2E TestNG Report
+        uses: actions/download-artifact@v4
+        with:
+          name: e2e-extent-report
+          path: reports/e2e
+
+      - name: Download API TestNG Report
+        uses: actions/download-artifact@v4
+        with:
+          name: api-extent-report
+          path: reports/api
+
+      - name: Download GUI TestNG Report
+        uses: actions/download-artifact@v4
+        with:
+          name: gui-extent-report
+          path: reports/gui
+
+      - name: Combine Reports
+        run: |
+          mkdir -p reports/combined/e2e reports/combined/api reports/combined/gui
+          cp -r reports/e2e/* reports/combined/e2e/
+          cp -r reports/api/* reports/combined/api/
+          cp -r reports/gui/* reports/combined/gui/
+
+      - name: Upload Combined Report as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: combined-report
+          path: reports/combined/

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="E2E test suite" parallel="classes" thread-count="4">
+    <listeners>
+        <listener class-name="testutils.retry.AnnotationTransformer"/>
+        <listener class-name="testutils.ExtentReporter"/>
+    </listeners>
+    <test name="E2E">
+        <groups>
+            <run>
+                <exclude name="brokenTests"/>
+                <include name="e2e"/>
+            </run>
+        </groups>
+        <packages>
+            <package name="e2etests.*"/>
+        </packages>
+    </test>
+</suite>

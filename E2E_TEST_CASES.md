@@ -2,7 +2,7 @@
 
 ### Test Cases:
 
-#### Test Case 1: User registration, adding an article, comment and flashpost.
+#### E2EGad1Test: User registration, adding an article, comment and flashpost.
 
 **Steps:**
 1. Hover over "person" icon in the upper right corner and click on "Register" button.

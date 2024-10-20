@@ -6,7 +6,7 @@
 
 ### Test Cases:
 
-#### Test Case 1: Registration and then logging in with proper data
+#### Test Case 1.1: Registration and then logging in with proper data
 
 **Steps:**
 
@@ -35,7 +35,7 @@
 4. "User created" popup is displayed and user is redirected to login page.
 5. User is logged in and redirected to "My account page".
 
-#### Test Case 2: Registration with existing user email
+#### Test Case 1.2: Registration with existing user email
 
 **Steps:**
 1. Hover over "person" icon in the upper right corner and click on "Register" button.
@@ -67,7 +67,7 @@
 4. "User created" popup is displayed and user is redirected to login page.
 5. "User not created! Email not unique" popup is displayed.
 
-#### Test Case 3: Registration with only user email field entered
+#### Test Case 1.3: Registration with only user email field entered
 
 **Steps:**
 1. Hover over "person" icon in the upper right corner and click on "Register" button.
@@ -83,7 +83,7 @@
 2. Data properly entered and visible.
 3. "This field is required" message is displayed below first name, last name and password fields.
 
-#### Test Case 4: Registration with wrong format data (first name, last name, email and date fields)
+#### Test Case 1.4: Registration with wrong format data (first name, last name, email and date fields)
 
 **Steps:**
 1. Hover over "person" icon in the upper right corner and click on "Register" button.
@@ -111,7 +111,7 @@
 
 ### Test Cases:
 
-#### Test Case 1: Adding an article with proper data
+#### Test Case 2.1: Adding an article with proper data
 
 **Prerequisites**
 - Registration and logging in to application (i.e steps 1-4 from scenario1 test case1)
@@ -135,7 +135,7 @@
 3. Data properly entered and new picture visible.
 4. "Article was created" message is displayed. User redirected to single article page view that was already created. Number of articles increased by 1.(Check using api or DB)
 
-#### Test Case 2: Adding an article with missing data
+#### Test Case 2.2: Adding an article with missing data
 
 **Prerequisites**
 - Registration and logging in to application (i.e steps 1-4 from scenario1 test case1)
@@ -163,7 +163,7 @@
 5. Data properly entered.
 6. "Article was not created" popup is displayed and user is not redirected to any other page. Number of written articles is not increased (check using api or in DB).
 
-#### Test Case 3: Adding an article by not logged in user
+#### Test Case 2.3: Adding an article by not logged in user
 
 **Prerequisites**
 - User not logged in
@@ -177,7 +177,7 @@
 
 1. User automatically redirected on Articles page. "Add Article" button not visible making it impossible to add new article without logging in.
 
-#### Test Case 4: Adding an article with Title longer than 128 characters
+#### Test Case 2.4: Adding an article with Title longer than 128 characters
 
 **Prerequisites**
 - Registration and logging in to application (i.e steps 1-4 from scenario1 test case1)
@@ -201,7 +201,7 @@
 3. Data properly entered.
 4. "Article was not created" popup is displayed and user is not redirected to any other page. Number of written articles is not increased (check using api or in DB). 422 error code expected and returned message should include text "Field validation: \"title\" longer than \"128\".
 
-#### Test Case 5: Adding an article with Polish and special characters
+#### Test Case 2.5: Adding an article with Polish and special characters
 
 **Prerequisites**
 - Registration and logging in to application (i.e steps 1-4 from scenario1 test case1)
@@ -229,7 +229,7 @@
 - Description : Registered and logged in user might add flashposts at maximum 128 length
 - Prerequisites: User is registered and logged in
 
-#### Test Case 1: Adding a flashpost with correct length by logged in user
+#### Test Case 3.1: Adding a flashpost with correct length by logged in user
 
 **Prerequisites**
 - Registration and logging in to application (i.e steps 1-4 from scenario1 test case1)
@@ -252,7 +252,7 @@
 3. Data properly entered. and tile with color changed to black.
 4. "Flashpost created successfully" message displayed in upper right corner of the page. Newly added flashpost added on top of the flashposts list with user first name and last name
 
-#### Test Case 2: Adding a flashpost with too long message by logged in user
+#### Test Case 3.2: Adding a flashpost with too long message by logged in user
 
 **Prerequisites**
 - Registration and logging in to application (i.e steps 1-4 from scenario1 test case1)
@@ -274,7 +274,7 @@
 2. Modal with title "Create Flashpost" opened.
 3. After reaching 128 characters GUI is not allowing to enter more data. "O characters left visible in lower right corner of text area". *sending api POST request should result in 422 error code with message: "One of field is invalid (empty, invalid or too long) or there are some additional fields: Field validation: \"body\" longer than \"128\""
 
-#### Test Case 3: Adding a flashpost by not logged in user
+#### Test Case 3.3: Adding a flashpost by not logged in user
 
 **Prerequisites**
 - User not logged in
@@ -303,7 +303,7 @@
 6. "You can't create this flashpost." alert displayed on the upper right corner.
 7. Modal closed and list of flashposts still visible.
 
-#### Test Case 4: Adding a public flashpost by logged in user and verification if it is visible for non-logged in users
+#### Test Case 3.4: Adding a public flashpost by logged in user and verification if it is visible for non-logged in users
 
 **Prerequisites**
 - Registration and logging in to application (i.e steps 1-4 from scenario1 test case1)
@@ -330,7 +330,7 @@
 5. User redirected to login page.
 6. Flashposts page is displayed. Flashpost with text "Am I public????" visible on top of flashposts.
 
-#### Test Case 5: Adding a non-public flashpost by logged in user and verification if it is not visible for non-logged in users
+#### Test Case 3.5: Adding a non-public flashpost by logged in user and verification if it is not visible for non-logged in users
 
 **Prerequisites**
 - Registration and/or logging in to application (i.e steps 1-4 from scenario1 test case1)
