@@ -44,13 +44,13 @@ java {
     }
 }
 
-tasks.register<Test>("apiTest") {
+tasks.register<Test>("apiTests") {
     useTestNG {
         suites("src/test/resources/testngApi.xml")
     }
 }
 
-tasks.register<Test>("guiTest") {
+tasks.register<Test>("guiTests") {
     useTestNG {
         suites("src/test/resources/testngGui.xml")
     }
