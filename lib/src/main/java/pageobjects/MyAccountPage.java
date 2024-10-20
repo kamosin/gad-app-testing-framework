@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import pageobjects.surveys.SurveysPage;
 
 public class MyAccountPage {
 
@@ -18,9 +19,16 @@ public class MyAccountPage {
 
     @FindBy(css = "h2[data-testid='hello']")
     WebElement welcomeElement;
+    @FindBy(xpath = "//button[text()='Surveys']")
+    WebElement surveysButton;
 
     public String getWelcomeText(){
         commonComponent.waitForElementToAppear(welcomeElement);
         return welcomeElement.getText();
+    }
+
+    public SurveysPage clickSurveysButton(){
+        surveysButton.click();
+        return new SurveysPage(driver);
     }
 }
