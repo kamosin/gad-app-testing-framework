@@ -117,7 +117,7 @@ jobs:
 
       - name: Combine Reports
         run: |
-          mkdir -p reports/combined
+          mkdir -p reports/combined/e2e reports/combined/api reports/combined/gui
           cp -r reports/e2e/* reports/combined/e2e/
           cp -r reports/api/* reports/combined/api/
           cp -r reports/gui/* reports/combined/gui/
