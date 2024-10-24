@@ -16,10 +16,9 @@ public class MyAccountPage {
         this.commonComponent = new CommonComponent(driver);
         PageFactory.initElements(driver, this);
     }
-
     @FindBy(css = "h2[data-testid='hello']")
     WebElement welcomeElement;
-    @FindBy(xpath = "//button[text()='Surveys']")
+    @FindBy(id = "btnSurveysLink")
     WebElement surveysButton;
 
     public String getWelcomeText(){
@@ -28,6 +27,7 @@ public class MyAccountPage {
     }
 
     public SurveysPage clickSurveysButton(){
+        commonComponent.waitForElementToAppear(surveysButton);
         surveysButton.click();
         return new SurveysPage(driver);
     }

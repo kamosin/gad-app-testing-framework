@@ -5,7 +5,7 @@
         <listener class-name="testutils.retry.AnnotationTransformer"/>
         <listener class-name="testutils.ExtentReporter"/>
     </listeners>
-    <test name="E2E">
+    <test name="E2E" parallel="methods">
         <groups>
             <run>
                 <exclude name="brokenTests"/>

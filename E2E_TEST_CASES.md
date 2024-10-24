@@ -57,3 +57,24 @@
 15. User successfully redirected to login page.
 16. Article is visible, and Title and user are the same as previously added.
 17. Flashpost is visible and text is correct.
+
+#### Test Case 2: Take REST API survey, Test Automation survey and verify survey responses.
+
+**Steps:**
+1. Register new user and login.
+2. Click "surveys" button on "MyAccount page".
+3. Click Take Survey button in a row with Testing REST API row.
+4. Click Start Survey button and answer the questions. Each time try to click Next button without answering the question and then select the answer.
+5. Click "Return to Surveys button" after copleting the survey.
+6. Click Take Survey button in a row with Test Automation row.
+7. Click Start Survey button and answer the questions. Each time try to click Next button without answering the question and then select the answer.
+
+**Expected results**
+
+1. User register and redirected to welcome page.
+2. USer redirected to surveys page.
+3. User redirected to REST APi survey page. Popup "To start press 'Start Survey'" displayed.
+4. Each time answer is not selected, "Please select an option" popup displayed. Previously selected answers have yellow background color. After clicking "Send Your Answers" button popup "Thank You!" displayed.
+5. User redirected to surveys page.
+6. User redirected to Test Automation survey page. Popup "To start press 'Start Survey'" displayed.
+7. Each time answer is not selected, "Please select an option" popup displayed. Previously selected answers have yellow background color. After clicking "Send Your Answers" button popup "Thank You!" displayed.
