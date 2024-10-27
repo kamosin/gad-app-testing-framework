@@ -122,11 +122,11 @@ jobs:
 
       - name: List JUnit reports
         run: ls -R reports
-        
+
       - name: Merge reports
         uses: mikepenz/action-junit-report@v4
         with:
-          report_paths: 'reports/**/testng/*.xml'
+          report_paths: 'reports/**/*.xml'
           fail_on_failure: true
 
 #      - name: Combine Reports
