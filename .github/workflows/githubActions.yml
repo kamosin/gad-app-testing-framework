@@ -33,8 +33,10 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: e2e-extent-report
-          path: lib/reports/
+          name: smoke-testng-report
+          path: lib/build/test-results
+#          name: smoke-extent-report
+#          path: lib/reports/
 
   apiTests:
     runs-on: ubuntu-latest
@@ -61,8 +63,10 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: api-extent-report
-          path: lib/reports/
+          name: api-testng-report
+          path: lib/build/test-results
+#          name: api-extent-report
+#          path: lib/reports/
 
   guiTests:
     runs-on: ubuntu-latest
@@ -89,8 +93,10 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: gui-extent-report
-          path: lib/reports/
+          name: gui-testng-reports
+          path: lib/build/test-results
+#          name: gui-extent-report
+#          path: lib/reports/
 
 
   gatherReports:
@@ -101,17 +107,17 @@ jobs:
       - name: Download E2E TestNG Report
         uses: actions/download-artifact@v4
         with:
-          name: smoke-extent-report
+          name: smoke-testng-report
           path: reports/smoke
 
       - uses: actions/download-artifact@v4
         with:
-          name: api-extent-report
+          name: api-testng-report
           path: reports/api
 
       - uses: actions/download-artifact@v4
         with:
-          name: gui-extent-report
+          name: gui-testng-report
           path: reports/gui
 
       - name: Merge reports
