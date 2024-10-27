@@ -120,6 +120,9 @@ jobs:
           name: gui-testng-report
           path: reports/gui
 
+      - name: List JUnit reports
+        run: ls -R reports
+        
       - name: Merge reports
         uses: mikepenz/action-junit-report@v4
         with:
