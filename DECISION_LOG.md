@@ -1,3 +1,26 @@
+## Division of "Big" E2E tests into smaller dependent on each other test methods
+
+**ID**: 004
+
+**Status**: Decided
+
+**Date**: 2024/10/27
+
+**Context**: After cration of first "big" e2e test there was a problem to resolve the problems occured in the process of development. It is because all steps were included in one single test method.
+
+**Proposed solution**: It was made a decision not to keep all steps in one single test method. All key parts of the test that needs to be tested is now in a separate test method, so that each step will be reported.
+
+**Pros**:
+- Readable, every step is easily found and recognised
+- All test methods are reported in a single row
+
+**Cons**
+- Test depends to each other, it is found as a not good practise
+
+**Decision**: Decided
+
+**Creator**: Kamil O
+
 ## Attaching to project external dependencies to serialize and deserialize JAVA objects to JSON format - Jackson Databind
 
 **ID**: 003

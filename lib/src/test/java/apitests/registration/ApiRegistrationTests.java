@@ -20,7 +20,7 @@ public class ApiRegistrationTests extends BaseApiTest {
         userService = new UserService(requestManager);
     }
 
-    @Test(groups = {"api", "registration"})
+    @Test(groups = {"api", "registration", "smoke"})
     public void userRegistrationAndLoginWithProperData(){
         //Given
 

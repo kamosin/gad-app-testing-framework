@@ -3,12 +3,10 @@ package e2etests;
 import api.models.UserRequest;
 import guitests.BaseTest;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import pageobjects.LoginPage;
+import pageobjects.LandingPage;
 import pageobjects.MyAccountPage;
-import pageobjects.RegistrationPage;
-import pageobjects.articles.ArticlesPage;
-import pageobjects.flashposts.FlashpostsPage;
 import testutils.ReusableData;
 import testutils.TestDataGenerator;
 
@@ -16,42 +14,37 @@ import static testutils.ReusableData.flashpostCreatedMessage;
 
 public class E2EGad1Test extends BaseTest {
 
-    @Test(groups = "e2e")
-    public void test1() throws InterruptedException {
-        //Given
-        var user = TestDataGenerator.generateUser();
-        var articleTitle = TestDataGenerator.generateArticleTitle();
-        var articleBody = TestDataGenerator.generateText(100);
-        var commentText=  TestDataGenerator.generateText(50);
-        var flashpostText = TestDataGenerator.generateText(40);
+    UserRequest user;
+    String articleTitle;
+    String articleBody;
+    String commentText;
+    String flashpostText;
 
-        testUserRegistration(user);
-        testUserLogin(user);
-        testArticleCreation(articleTitle, articleBody);
-        var articlesPage = checkArticleSearch(articleTitle);
-        testCommentCreation(articlesPage, articleTitle, commentText);
-        testFlashpostsCreation(user, flashpostText);
-        verifyArticleVisibilityForNotLoggedInUser(user, articleTitle);
-        verifyFlashpostVisibilityForNotLoggedInUser(user, flashpostText);
+    @BeforeClass(groups = "e2e")
+    public void initData(){
+        user = TestDataGenerator.generateUser();
+        articleTitle = TestDataGenerator.generateArticleTitle();
+        articleBody = TestDataGenerator.generateText(50);
+        commentText = TestDataGenerator.generateText(25);
+        flashpostText = TestDataGenerator.generateText(60);
     }
 
     @Test(groups = "e2e")
-    public UserRequest testUserRegistration(UserRequest user){
+    public void testUserRegistration(){
         //Given
-        var registrationPage = new RegistrationPage(driver);
+        var registrationPage = navigationBar.clickRegisterButton();
 
         //When
         String registrationInfo = registrationPage.registerWithAllFields(user.firstname(), user.lastname(), user.email(), user.birthDate(),
                 user.password(), user.avatar());
         //Then
         Assert.assertEquals(registrationInfo, ReusableData.userCreatedExpectedMessage);
-        return user;
     }
 
-    @Test
-    public void testUserLogin(UserRequest user){
+    @Test(groups = "e2e", dependsOnMethods = "testUserRegistration")
+    public void testUserLogin(){
         //Given
-        LoginPage loginPage = new LoginPage(driver);
+        var loginPage = navigationBar.clickLoginButton();
 
         //When
         loginPage.enterAllLoginData(user.email(), user.password());
@@ -62,9 +55,10 @@ public class E2EGad1Test extends BaseTest {
         Assert.assertEquals(myAccountPage.getWelcomeText(), "Hi " + user.email() + "!");
     }
 
-    @Test
-    public String testArticleCreation(String articleTitle, String articleBody){
+    @Test(groups = "e2e", dependsOnMethods = "testUserLogin")
+    public void testArticleCreation(){
         //Given
+        testUserLogin();
         var articleImage = ReusableData.articlePictureName;
         navigationBar.clickArticlesPageButton();
 
@@ -75,12 +69,12 @@ public class E2EGad1Test extends BaseTest {
 
         //Then
         Assert.assertEquals(commonComponent.getPopupText(), ReusableData.expectedArticleCreatedMessage);
-        return articleTitle;
     }
 
-    @Test
-    public ArticlesPage checkArticleSearch(String articleTitle) throws InterruptedException {
+    @Test(groups = "e2e", dependsOnMethods = "testArticleCreation")
+    public void checkArticleSearch() throws InterruptedException {
         //Given
+        testUserLogin();
         var articlesPage = navigationBar.clickArticlesPageButton();
 
         //When
@@ -90,13 +84,13 @@ public class E2EGad1Test extends BaseTest {
         Thread.sleep(500);
         Assert.assertEquals(articlesPage.returnNumberOfArticlesVisible(), 1);
         Assert.assertTrue(articlesPage.returnNamesOfArticles().contains(articleTitle));
-
-        return articlesPage;
     }
 
-    @Test
-    public void testCommentCreation(ArticlesPage articlesPage, String articleTitle, String commentText){
+    @Test(groups = "e2e", dependsOnMethods = "checkArticleSearch")
+    public void testCommentCreation(){
         //Given
+        testUserLogin();
+        var articlesPage = navigationBar.clickArticlesPageButton();
         var singleArticlePage = articlesPage.clickSeeMore(articleTitle);
 
         //When
@@ -109,9 +103,10 @@ public class E2EGad1Test extends BaseTest {
         Assert.assertEquals(singleComment.getCommentText(), commentText);
     }
 
-    @Test
-    public FlashpostsPage testFlashpostsCreation(UserRequest user, String flashpostText){
+    @Test(groups = "e2e", dependsOnMethods = "testCommentCreation")
+    public void testFlashpostsCreation(){
         //Given
+        testUserLogin();
         var flashpostsPage = navigationBar.clickFlashpostsPageButton();
 
         //When
@@ -120,14 +115,13 @@ public class E2EGad1Test extends BaseTest {
         //Then
         Assert.assertTrue(commonComponent.getSimpleAlertsText().contains(flashpostCreatedMessage));
         Assert.assertEquals(flashpostsPage.getFlashpostAuthor(0), user.firstname() + " " + user.lastname());
-
-        return flashpostsPage;
     }
 
-    @Test
-    public void verifyArticleVisibilityForNotLoggedInUser(UserRequest user, String articleTitle){
+    @Test(groups = "e2e", dependsOnMethods = "testFlashpostsCreation")
+    public void verifyArticleVisibilityForNotLoggedInUser(){
         //When
-        navigationBar.clickLogoutButton();
+        var landingPage = new LandingPage(driver);
+        landingPage.clickStartButton();
         var articlesPage = navigationBar.clickArticlesPageButton();
 
         //Then
@@ -135,9 +129,11 @@ public class E2EGad1Test extends BaseTest {
         Assert.assertEquals(articlesPage.returnTitleOfArticle(0), articleTitle);
     }
 
-    @Test
-    public void verifyFlashpostVisibilityForNotLoggedInUser(UserRequest user, String flashpostText){
+    @Test(groups = "e2e", dependsOnMethods = "verifyArticleVisibilityForNotLoggedInUser")
+    public void verifyFlashpostVisibilityForNotLoggedInUser(){
         //When
+        var landingPage = new LandingPage(driver);
+        landingPage.clickStartButton();
         var flashpostsPage = navigationBar.clickFlashpostsPageButton();
 
         //Then

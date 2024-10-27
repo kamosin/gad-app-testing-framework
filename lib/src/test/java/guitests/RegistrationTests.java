@@ -16,7 +16,7 @@ public class RegistrationTests extends BaseTest {
 
     UserRequest user;
 
-    @Test(groups = "gui")
+    @Test(groups = {"gui", "smoke"})
     public void RegistrationAndLoggingTest() {
         //Given
         var registrationPage = new RegistrationPage(driver);

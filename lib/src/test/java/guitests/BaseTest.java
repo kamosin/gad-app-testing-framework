@@ -27,7 +27,6 @@ public class BaseTest {
         var landingPage = new LandingPage(driver);
         landingPage.goToLandingPage(appUrl);
         requestManager = new RequestManager();
-//        restoreDatabase();
     }
 
     private void restoreDatabase() {
