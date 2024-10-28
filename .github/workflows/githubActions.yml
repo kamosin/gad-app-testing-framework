@@ -29,14 +29,19 @@ jobs:
       - name: Run E2E Tests
         run: ./gradlew clean smokeTests -i
 
-      - name: Upload ExtentReports as artifact
+      - name: Upload result artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: smoke-testng-report
           path: lib/build/test-results
-#          name: smoke-extent-report
-#          path: lib/reports/
+
+      - name: Upload extent Reports artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-extent-report
+          path: lib/reports/
 
   apiTests:
     runs-on: ubuntu-latest
@@ -65,8 +70,14 @@ jobs:
         with:
           name: api-testng-report
           path: lib/build/test-results
-#          name: api-extent-report
-#          path: lib/reports/
+
+      - name: Upload extent Reports artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-extent-report
+          path: lib/reports/
+
 
   guiTests:
     runs-on: ubuntu-latest
@@ -95,9 +106,13 @@ jobs:
         with:
           name: gui-testng-report
           path: lib/build/test-results
-#          name: gui-extent-report
-#          path: lib/reports/
 
+      - name: Upload extent Reports artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gui-extent-report
+          path: lib/reports/
 
   gatherReports:
     runs-on: ubuntu-latest
@@ -120,61 +135,21 @@ jobs:
           name: gui-testng-report
           path: reports/gui
 
-      - name: List JUnit reports
-        run: ls -R reports
-
       - name: Merge reports
         uses: mikepenz/action-junit-report@v4
         with:
           report_paths: 'reports/**/*.xml'
           fail_on_failure: true
 
-#      - name: Combine Reports
-#        run: |
-#          mkdir -p reports/combined/e2e reports/combined/api reports/combined/gui
-#          cp -r reports/e2e/* reports/combined/e2e/
-#          cp -r reports/api/* reports/combined/api/
-#          cp -r reports/gui/* reports/combined/gui/
-#
-#      - name: Upload Combined Report as Artifact
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: combined-report
-#          path: reports/combined/
+      - name: Combine extent Reports
+        run: |
+          mkdir -p reports/combined/e2e reports/combined/api reports/combined/gui
+          cp -r reports/e2e/* reports/combined/e2e/
+          cp -r reports/api/* reports/combined/api/
+          cp -r reports/gui/* reports/combined/gui/
 
-
-#  gatherReports:
-#    runs-on: ubuntu-latest
-#    needs: [e2eTests, apiTests, guiTests]
-#    if: always()
-#    steps:
-#      - name: Download E2E TestNG Report
-#        uses: actions/download-artifact@v4
-#        with:
-#          name: e2e-extent-report
-#          path: reports/e2e
-#
-#      - name: Download API TestNG Report
-#        uses: actions/download-artifact@v4
-#        with:
-#          name: api-extent-report
-#          path: reports/api
-#
-#      - name: Download GUI TestNG Report
-#        uses: actions/download-artifact@v4
-#        with:
-#          name: gui-extent-report
-#          path: reports/gui
-#
-#      - name: Combine Reports
-#        run: |
-#          mkdir -p reports/combined/e2e reports/combined/api reports/combined/gui
-#          cp -r reports/e2e/* reports/combined/e2e/
-#          cp -r reports/api/* reports/combined/api/
-#          cp -r reports/gui/* reports/combined/gui/
-#
-#      - name: Upload Combined Report as Artifact
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: combined-report
-#          path: reports/combined/
+      - name: Upload Combined Report as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: combined-report
+          path: reports/combined/
