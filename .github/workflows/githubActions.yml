@@ -26,7 +26,7 @@ jobs:
       - name: Start Gad App
         run: docker run -d -p 3001:3000 jaktestowac/gad:latest
 
-      - name: Run E2E Tests
+      - name: Run smoke Tests
         run: ./gradlew clean smokeTests -i
 
       - name: Upload result artifact
@@ -64,7 +64,7 @@ jobs:
       - name: Run API Tests
         run: ./gradlew clean apiTests -i
 
-      - name: Upload ExtentReports as artifact
+      - name: Upload result artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -100,7 +100,7 @@ jobs:
       - name: Run GUI Tests
         run: ./gradlew clean guiTests -i
 
-      - name: Upload ExtentReports as artifact
+      - name: Upload result artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -119,8 +119,7 @@ jobs:
     needs: [smokeTests, apiTests, guiTests ]
     if: always()
     steps:
-      - name: Download E2E TestNG Report
-        uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v4
         with:
           name: smoke-testng-report
           path: reports/smoke
@@ -135,6 +134,21 @@ jobs:
           name: gui-testng-report
           path: reports/gui
 
+      - uses: actions/download-artifact@v4
+        with:
+          name: smoke-extent-report
+          path: extent/smoke
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: api-extent-report
+          path: extent/api
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: gui-extent-report
+          path: extent/gui
+
       - name: Merge reports
         uses: mikepenz/action-junit-report@v4
         with:
@@ -143,13 +157,13 @@ jobs:
 
       - name: Combine extent Reports
         run: |
-          mkdir -p reports/combined/e2e reports/combined/api reports/combined/gui
-          cp -r reports/e2e/* reports/combined/e2e/
-          cp -r reports/api/* reports/combined/api/
-          cp -r reports/gui/* reports/combined/gui/
+          mkdir -p extent/combined/smoke extent/combined/api extent/combined/gui
+          cp -r extent/smoke/* extent/combined/smoke/
+          cp -r extent/api/* extent/combined/api/
+          cp -r extent/gui/* extent/combined/gui/
 
       - name: Upload Combined Report as Artifact
         uses: actions/upload-artifact@v4
         with:
           name: combined-report
-          path: reports/combined/
+          path: extent/combined/
