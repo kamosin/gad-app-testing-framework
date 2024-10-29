@@ -5,6 +5,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import pageobjects.CommonComponent;
+import pageobjects.surveys.automationsurvey.TestAutomationSurveyPage;
+import pageobjects.surveys.restapisurvey.RestApiTestingSurveyPage;
 
 import java.util.List;
 
