@@ -1,10 +1,11 @@
-package pageobjects.surveys;
+package pageobjects.surveys.statistics;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import pageobjects.CommonComponent;
+import pageobjects.surveys.SurveysPage;
 
 import java.util.List;
 

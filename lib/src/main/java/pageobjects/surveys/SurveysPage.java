@@ -7,6 +7,8 @@ import org.openqa.selenium.support.PageFactory;
 import pageobjects.CommonComponent;
 import pageobjects.surveys.automationsurvey.TestAutomationSurveyPage;
 import pageobjects.surveys.restapisurvey.RestApiTestingSurveyPage;
+import pageobjects.surveys.statistics.AutomationStatisticsPage;
+import pageobjects.surveys.statistics.RestApiStatisticsPage;
 
 import java.util.List;
 

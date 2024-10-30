@@ -1,4 +1,4 @@
-package pageobjects.surveys;
+package pageobjects.surveys.statistics;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
