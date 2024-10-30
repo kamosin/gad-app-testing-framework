@@ -34,11 +34,6 @@ public class RestApiTestingSurveyPage extends TestSurveyBasePage {
     @FindBy(css = "input[name='frequency']")
     List<WebElement> frequencyRadioButton;
 
-    public SurveysPage clickReturnToSurveysButton(){
-        returnToSurveysButton.click();
-        return new SurveysPage(driver);
-    }
-
     public void answerAllQuestions(boolean manualTestingExperience, List<ManualTestingTool> manualTestingTools,
                                    boolean newmanExperience, boolean ciCdExperience, List<CiCdTool> ciCdTools,
                                    FrequencyTesting manualTestingFrequency, List<TestTypes> testTypes, String testingPlans) {

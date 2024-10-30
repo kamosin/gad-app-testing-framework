@@ -23,6 +23,10 @@ public class SurveysPage {
 
     @FindBy(css = "button[translateid='btnTakeSurvey']")
     List<WebElement> takeSurveyButtons;
+    @FindBy(id = "btnSurveyStatistics")
+    WebElement restApiTestingStatistics;
+    @FindBy(css = "button[translateid='btnSurveyStatistics']")
+    WebElement automationTestingStatistics;
 
     public RestApiTestingSurveyPage clickRestApiTakeSurveyButton(){
         takeSurveyButtons.getFirst().click();
@@ -32,6 +36,16 @@ public class SurveysPage {
     public TestAutomationSurveyPage clickTestAutomationSurveyButton(){
         takeSurveyButtons.getLast().click();
         return new TestAutomationSurveyPage(driver);
+    }
+
+    public RestApiStatisticsPage clickRestApiStatisticsButton(){
+        restApiTestingStatistics.click();
+        return new RestApiStatisticsPage(driver);
+    }
+
+    public AutomationStatisticsPage clickAutomationStatisticsButton(){
+        automationTestingStatistics.click();
+        return new AutomationStatisticsPage(driver);
     }
 
 

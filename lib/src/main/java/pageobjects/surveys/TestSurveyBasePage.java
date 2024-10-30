@@ -47,6 +47,11 @@ public abstract class TestSurveyBasePage {
         nextButton.getLast().click();
     }
 
+    public SurveysPage clickReturnToSurveysButton(){
+        returnToSurveysButton.click();
+        return new SurveysPage(driver);
+    }
+
     public void selectTestTypesInProject(List<TestTypes> types) {
         scrollModal();
         if(isRejectButtonVisible()){
