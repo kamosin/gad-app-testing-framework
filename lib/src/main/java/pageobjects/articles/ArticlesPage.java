@@ -40,6 +40,7 @@ public class ArticlesPage {
     }
 
     private WebElement getArticleWrapperByArticleName(String articleTitle) {
+        commonComponent.waitForElementsToAppear(singleArticleWrapper);
         return singleArticleWrapper.stream()
                 .filter(wrapper -> articleTitle.equals(wrapper.findElement(singleArticleName).getText()))
                 .findFirst()

@@ -68,6 +68,12 @@ tasks.register<Test>("e2eTests") {
     }
 }
 
+tasks.register<Test>("smokeTests") {
+    useTestNG {
+        suites("src/test/resources/testngSmoke.xml")
+    }
+}
+
 tasks.named<Test>("test"){
     useTestNG()
 }
