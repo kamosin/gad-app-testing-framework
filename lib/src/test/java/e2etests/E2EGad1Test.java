@@ -72,7 +72,7 @@ public class E2EGad1Test extends BaseTest {
     @Test(groups = "e2e", dependsOnMethods = "testUserLogin")
     public void testArticleCreation(){
         //Given
-//        testUserLogin();
+
         authUserAndStart(user.email(), user.password());
         var articleImage = ReusableData.articlePictureName;
         navigationBar.clickArticlesPageButton();
