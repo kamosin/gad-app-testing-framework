@@ -79,7 +79,7 @@ public class RegistrationTests extends BaseTest {
         var wrongEmail = "john.smith@mail";
         var wrongDate = "12-12-1969";
         var userService = new UserService(requestManager);
-        var numberOfUsersBeforeRegistration = userService.getNumberOfUsers(appUrl);
+        var numberOfUsersBeforeRegistration = userService.getNumberOfUsers();
 
         //When
         var registrationPage = navigationBar.clickRegisterButton();
@@ -91,7 +91,7 @@ public class RegistrationTests extends BaseTest {
                 registrationPage.isLastNameValidationTextVisible(ReusableData.wrongLastNameMessage) &&
                 registrationPage.isEmailValidationTextVisible(ReusableData.wrongEmailMessage) &&
                 registrationPage.isDateValidationTextVisible(ReusableData.wrongDateMessage));
-        Assert.assertEquals(userService.getNumberOfUsers(appUrl), numberOfUsersBeforeRegistration);
+        Assert.assertEquals(userService.getNumberOfUsers(), numberOfUsersBeforeRegistration);
     }
 
 }

@@ -1,7 +1,10 @@
 package e2etests;
 
+import api.UserService;
+import api.models.LoginRequest;
 import api.models.UserRequest;
 import guitests.BaseTest;
+import org.openqa.selenium.Cookie;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -15,6 +18,7 @@ import static testutils.ReusableData.flashpostCreatedMessage;
 public class E2EGad1Test extends BaseTest {
 
     UserRequest user;
+    UserService userService;
     String articleTitle;
     String articleBody;
     String commentText;
@@ -27,6 +31,16 @@ public class E2EGad1Test extends BaseTest {
         articleBody = TestDataGenerator.generateText(50);
         commentText = TestDataGenerator.generateText(25);
         flashpostText = TestDataGenerator.generateText(60);
+    }
+
+    private void authUserAndStart(String email, String password){
+        userService = new UserService(requestManager);
+        requestManager.setToken(new LoginRequest(user.email(), user.password()));
+        driver.manage().addCookie(new Cookie("email", user.email()));
+        driver.manage().addCookie(new Cookie("id", String.valueOf(userService.getNumberOfUsers())));
+        driver.manage().addCookie(new Cookie("token", requestManager.getToken()));
+        var landingPage = new LandingPage(driver);
+        landingPage.clickStartButton();
     }
 
     @Test(groups = "e2e")
@@ -58,7 +72,8 @@ public class E2EGad1Test extends BaseTest {
     @Test(groups = "e2e", dependsOnMethods = "testUserLogin")
     public void testArticleCreation(){
         //Given
-        testUserLogin();
+//        testUserLogin();
+        authUserAndStart(user.email(), user.password());
         var articleImage = ReusableData.articlePictureName;
         navigationBar.clickArticlesPageButton();
 
@@ -74,7 +89,7 @@ public class E2EGad1Test extends BaseTest {
     @Test(groups = "e2e", dependsOnMethods = "testArticleCreation")
     public void checkArticleSearch() throws InterruptedException {
         //Given
-        testUserLogin();
+        authUserAndStart(user.email(), user.password());
         var articlesPage = navigationBar.clickArticlesPageButton();
 
         //When
@@ -89,7 +104,7 @@ public class E2EGad1Test extends BaseTest {
     @Test(groups = "e2e", dependsOnMethods = "checkArticleSearch")
     public void testCommentCreation(){
         //Given
-        testUserLogin();
+        authUserAndStart(user.email(), user.password());
         var articlesPage = navigationBar.clickArticlesPageButton();
         var singleArticlePage = articlesPage.clickSeeMore(articleTitle);
 
@@ -106,7 +121,7 @@ public class E2EGad1Test extends BaseTest {
     @Test(groups = "e2e", dependsOnMethods = "testCommentCreation")
     public void testFlashpostsCreation(){
         //Given
-        testUserLogin();
+        authUserAndStart(user.email(), user.password());
         var flashpostsPage = navigationBar.clickFlashpostsPageButton();
 
         //When
