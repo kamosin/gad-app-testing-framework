@@ -24,7 +24,7 @@ public class UserService{
         return requestManager.get(usersEndpoint+"/"+userId);
     }
 
-    public int getNumberOfUsers(String baseURI){
+    public int getNumberOfUsers(){
         return getUsers().jsonPath().getList("").size();
     }
 

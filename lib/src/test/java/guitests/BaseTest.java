@@ -7,6 +7,7 @@ import api.testutils.TestUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import pageobjects.*;
@@ -19,7 +20,7 @@ public class BaseTest {
     protected CommonComponent commonComponent;
     OtherFeaturesService otherFeaturesService;
     String appUrl = TestUtils.getGlobalValue("baseUrl");
-    RequestManager requestManager;
+    protected RequestManager requestManager;
 
     @BeforeMethod(alwaysRun = true)
     public void launchApplication(){
@@ -36,7 +37,7 @@ public class BaseTest {
 
     private void initializeDriver() {
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless");
+//        options.addArguments("--headless");
         driver = new ChromeDriver(options);
         commonComponent = new CommonComponent(driver);
         navigationBar = new NavigationBar(driver);

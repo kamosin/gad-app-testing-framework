@@ -21,6 +21,10 @@ public class RequestManager {
         this.token = getJsonPath(response, "access_token");
     }
 
+    public String getToken() {
+        return token!=null ? token : "";
+    }
+
     public void logout(){
         this.token = "";
     }
